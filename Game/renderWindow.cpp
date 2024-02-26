@@ -1,5 +1,5 @@
 #include "renderWindow.h"
-
+#include "road.h"
 using namespace std;
 
 renderWindow::renderWindow (int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WINDOW_TITLE)
@@ -40,15 +40,20 @@ SDL_Texture* renderWindow::loadTexture(const char* filename)
     return texture;
 }
 
-void renderWindow::renderTexture(SDL_Texture* texture, int x, int y)
+void renderWindow::renderTexture(SDL_Texture* texture, float x, float y)
 {
     SDL_Rect spongeBobSrc;
     spongeBobSrc.x = x;
     spongeBobSrc.y = y;
 
+
     SDL_QueryTexture(texture,NULL,NULL,&spongeBobSrc.w,&spongeBobSrc.h);
 
     SDL_RenderCopy(renderer,texture,NULL,&spongeBobSrc);
+}
+
+void renderWindow::display()
+{
     SDL_RenderPresent(renderer);
 }
 

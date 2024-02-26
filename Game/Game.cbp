@@ -35,6 +35,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="renderWindow.cpp" />
 		<Unit filename="renderWindow.h" />
+		<Unit filename="road.cpp" />
+		<Unit filename="road.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
