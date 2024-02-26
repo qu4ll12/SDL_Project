@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1708853434 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+	"renderWindow.h"
+
+1708853149 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
+	"renderWindow.h"
+
+1708852794 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
