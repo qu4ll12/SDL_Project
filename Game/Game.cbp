@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="entity.cpp" />
+		<Unit filename="entity.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="renderWindow.cpp" />
 		<Unit filename="renderWindow.h" />
