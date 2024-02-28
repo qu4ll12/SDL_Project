@@ -1,22 +1,22 @@
 # depslib dependency file v1.0
-1709017410 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1709102803 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 
-1709003902 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
+1709099696 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
 	"renderWindow.h"
 	"entity.h"
 
-1709003817 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
+1709099696 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	"entity.h"
 
-1709004158 source:c:\sdlord\inisdl\sdl_project\game\entity.cpp
+1709089153 source:c:\sdlord\inisdl\sdl_project\game\entity.cpp
 	"entity.h"
 
-1709004159 c:\sdlord\inisdl\sdl_project\game\entity.h
+1709105817 c:\sdlord\inisdl\sdl_project\game\entity.h
 	<SDL.h>
 	<SDL_image.h>
 

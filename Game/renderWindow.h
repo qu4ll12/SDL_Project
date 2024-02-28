@@ -14,7 +14,7 @@ class renderWindow
 public:
 	renderWindow (int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WINDOW_TITLE);
 	SDL_Texture* loadTexture(const char * filename);
-	void renderTexture(entity& e_entity, int x, int y, int w, int h);
+	void renderTexture(entity& e_entity,  float x, float y, float w, float h);
 	void display();
 	void quitSDL();
 	void waitUntilKeyPressed();

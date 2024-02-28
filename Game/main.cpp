@@ -28,32 +28,26 @@ int main(int argc, char* argv[])
         SDL_Event event;
         while(SDL_PollEvent(&event))
         {
-            if(event.type == SDL_KEYUP)
+            if(event.type == SDL_KEYDOWN)
             {
                 if(event.key.keysym.scancode == SDL_SCANCODE_A)
                 {
+                    if(n-75 > 0) n-=75;
                     game.renderTexture(e_highway,75,0,300,750);
-                    game.display();
                     game.renderTexture(e_grass,0,0,75,750);
-                    game.display();
                     game.renderTexture(e_grass,75*5,0,75,750);
+                    game.renderTexture(e_car,n,600,71,134);
                     game.display();
-                    game.renderTexture(e_car,n-75,600,71,134);
-                    game.display();
-                    n-=75;
                 }
 
                 else if(event.key.keysym.scancode == SDL_SCANCODE_D)
                 {
+                    if(n+75 < 75*5) n+=75;
                     game.renderTexture(e_highway,75,0,300,750);
-                    game.display();
                     game.renderTexture(e_grass,0,0,75,750);
-                    game.display();
                     game.renderTexture(e_grass,75*5,0,75,750);
+                    game.renderTexture(e_car,n,600,71,134);
                     game.display();
-                    game.renderTexture(e_car,n+75,600,71,134);
-                    game.display();
-                    n+=75;
                 }
                 else if(event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
                 {

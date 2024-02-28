@@ -40,7 +40,7 @@ SDL_Texture* renderWindow::loadTexture(const char* filename)
     return texture;
 }
 
-void renderWindow::renderTexture(entity& e_entity, int x, int y, int w, int h)
+void renderWindow::renderTexture(entity& e_entity, float x, float y, float w, float h)
 {
     SDL_Rect src;
     src.x=e_entity.getCurrentFrame().x;
