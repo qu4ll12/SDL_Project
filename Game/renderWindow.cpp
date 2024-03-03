@@ -28,6 +28,11 @@ renderWindow::renderWindow (int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WIN
                                               SDL_RENDERER_PRESENTVSYNC);
 }
 
+SDL_Window* renderWindow::getWindow()
+{
+    return window;
+}
+
 SDL_Texture* renderWindow::loadTexture(const char* filename)
 {
     SDL_Texture* texture = IMG_LoadTexture(renderer,filename);

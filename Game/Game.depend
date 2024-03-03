@@ -1,13 +1,14 @@
 # depslib dependency file v1.0
-1709102803 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1709462816 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+	"renderWindow.h"
+	"entity.h"
+	"road.h"
+
+1709440882 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
 	"renderWindow.h"
 	"entity.h"
 
-1709099696 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
-	"renderWindow.h"
-	"entity.h"
-
-1709099696 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
+1709172228 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -19,4 +20,11 @@
 1709105817 c:\sdlord\inisdl\sdl_project\game\entity.h
 	<SDL.h>
 	<SDL_image.h>
+
+1709459233 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
+	"road.h"
+
+1709459143 c:\sdlord\inisdl\sdl_project\game\road.h
+	"renderWindow.h"
+	"entity.h"
 
