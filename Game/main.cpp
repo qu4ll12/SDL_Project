@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     game.renderTexture(e_grass,0,0,75,750);
     game.renderTexture(e_grass,75*5,0,75,750);
     highway.animateRoad(game,4);
-    taxi.spawn(game,10);
+    taxi.spawn(game,2);
     game.renderTexture(e_car,75,600,71,134);
     game.display();
 
@@ -38,6 +38,7 @@ int main(int argc, char* argv[])
                     if(n-75 > 0) n-=75;
                     highway.animateRoad(game,4);
                     game.renderTexture(e_car,n,600,71,134);
+                    taxi.spawn(game,2);
                     game.renderTexture(e_grass,0,0,75,750);
                     game.renderTexture(e_grass,75*5,0,75,750);
                     game.display();
@@ -48,6 +49,7 @@ int main(int argc, char* argv[])
                     if(n+75 < 75*5) n+=75;
                     highway.animateRoad(game,4);
                     game.renderTexture(e_car,n,600,71,134);
+                    taxi.spawn(game,2);
                     game.renderTexture(e_grass,0,0,75,750);
                     game.renderTexture(e_grass,75*5,0,75,750);
                     game.display();
