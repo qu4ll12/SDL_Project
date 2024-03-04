@@ -5,17 +5,15 @@
 
 static float road_w=300;
 static float road_h=750;
-static int frame_num=0;
+static long long unsigned int frame_num=0;
 
 class road: public entity
 {
 public:
     road(float r_w, float r_h, SDL_Texture* r_tex);
     void textureRoad(renderWindow& a);
-    void animateRoad(renderWindow& a);
+    void animateRoad(renderWindow& a, int speed);
 private:
-    SDL_Texture* tex1;
-    SDL_Texture* tex2;
-    SDL_Texture* tex3;
-    SDL_Texture* tex4;
+    std::vector <SDL_Texture*> tex;
+    std::vector <entity> frame;
 };

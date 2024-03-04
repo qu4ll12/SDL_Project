@@ -4,42 +4,47 @@ using namespace std;
 
 road::road(float r_w, float r_h, SDL_Texture* r_tex) : entity(r_w, r_h, r_tex)
 {
-    tex1 = r_tex;
 }
 
 void road::textureRoad(renderWindow& a)
 {
-    tex2 = a.loadTexture("highway2.png");
-    tex3 = a.loadTexture("highway3.png");
-    tex4 = a.loadTexture("highway4.png");
-
+    tex.push_back(a.loadTexture("highway1.png"));
+    tex.push_back(a.loadTexture("highway2.png"));
+    tex.push_back(a.loadTexture("highway3.png"));
+    tex.push_back(a.loadTexture("highway4.png"));
+    tex.push_back(a.loadTexture("highway5.png"));
+    tex.push_back(a.loadTexture("highway6.png"));
+    tex.push_back(a.loadTexture("highway7.png"));
+    tex.push_back(a.loadTexture("highway8.png"));
+    tex.push_back(a.loadTexture("highway9.png"));
+    tex.push_back(a.loadTexture("highway10.png"));
+    tex.push_back(a.loadTexture("highway11.png"));
+    tex.push_back(a.loadTexture("highway12.png"));
+    tex.push_back(a.loadTexture("highway13.png"));
+    tex.push_back(a.loadTexture("highway14.png"));
+    tex.push_back(a.loadTexture("highway15.png"));
+    tex.push_back(a.loadTexture("highway16.png"));
+    tex.push_back(a.loadTexture("highway17.png"));
+    tex.push_back(a.loadTexture("highway18.png"));
+    tex.push_back(a.loadTexture("highway19.png"));
+    tex.push_back(a.loadTexture("highway20.png"));
 }
 
-void road::animateRoad(renderWindow& a)
+void road::animateRoad(renderWindow& a, int speed)
 {
-    entity frame1(300,750,tex1);
-    entity frame2(300,750,tex2);
-    entity frame3(300,750,tex3);
-    entity frame4(300,750,tex4);
+    for(long long unsigned int i=0;i<tex.size();i++)
+    {
+        frame.push_back(entity(300,750,tex[i]));
+    }
 
-    if (frame_num==0)
+    if (frame_num>=frame.size()-1)
     {
-        a.renderTexture(frame1,75,0,300,750);
-        frame_num++;
-    }
-    else if (frame_num==1)
-    {
-        a.renderTexture(frame2,75,0,300,750);
-        frame_num++;
-    }
-    else if (frame_num==2)
-    {
-        a.renderTexture(frame3,75,0,300,750);
-        frame_num++;
-    }
-    else if (frame_num==3)
-    {
-        a.renderTexture(frame4,75,0,300,750);
+        a.renderTexture(frame[frame_num],75,0,300,750);
         frame_num=0;
+    }
+    else
+    {
+        a.renderTexture(frame[frame_num],75,0,300,750);
+        frame_num+=speed;
     }
 }

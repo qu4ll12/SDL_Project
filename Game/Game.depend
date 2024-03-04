@@ -1,15 +1,16 @@
 # depslib dependency file v1.0
-1709462816 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1709555910 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
+	"obsticale.h"
 
 1709440882 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
 	"renderWindow.h"
 	"entity.h"
 
-1709172228 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
-	<iostream>
+1709541513 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
+	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
 	"entity.h"
@@ -17,14 +18,24 @@
 1709089153 source:c:\sdlord\inisdl\sdl_project\game\entity.cpp
 	"entity.h"
 
-1709105817 c:\sdlord\inisdl\sdl_project\game\entity.h
+1709541668 c:\sdlord\inisdl\sdl_project\game\entity.h
+	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
 
-1709459233 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
+1709548649 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
 	"road.h"
 
-1709459143 c:\sdlord\inisdl\sdl_project\game\road.h
+1709548649 c:\sdlord\inisdl\sdl_project\game\road.h
+	"renderWindow.h"
+	"entity.h"
+
+1709555877 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
+	"renderWindow.h"
+	"entity.h"
+	"obsticale.h"
+
+1709555803 c:\sdlord\inisdl\sdl_project\game\obsticale.h
 	"renderWindow.h"
 	"entity.h"
 
