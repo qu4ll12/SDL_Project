@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1709555957 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1709558077 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -9,7 +9,7 @@
 	"renderWindow.h"
 	"entity.h"
 
-1709541513 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
+1709556235 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -30,12 +30,12 @@
 	"renderWindow.h"
 	"entity.h"
 
-1709555877 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
+1709557302 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
 	"renderWindow.h"
 	"entity.h"
 	"obsticale.h"
 
-1709555803 c:\sdlord\inisdl\sdl_project\game\obsticale.h
+1709556567 c:\sdlord\inisdl\sdl_project\game\obsticale.h
 	"renderWindow.h"
 	"entity.h"
 

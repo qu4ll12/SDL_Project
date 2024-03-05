@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     entity e_grass(75,750,grass);
     road highway(800,800,_highway);
     highway.textureRoad(game);
-    int n=75;
+    float n=75;
     SDL_Event event;
     game.renderTexture(e_grass,0,0,75,750);
     game.renderTexture(e_grass,75*5,0,75,750);
@@ -60,10 +60,19 @@ int main(int argc, char* argv[])
                 }
             }
         }
-                highway.animateRoad(game,4);
-                taxi.spawn(game,2);
-                game.renderTexture(e_car,n,600,71,134);
-                game.display();
+
+            if(n==taxi.getX() && taxi.getY()>=750-134*2-10)
+            {
+                exit(0);
+            }
+            else if(taxi.getY()>=750)
+            {
+                exit(0);
+            }
+            highway.animateRoad(game,4);
+            taxi.spawn(game,2);
+            game.renderTexture(e_car,n,600,71,134);
+            game.display();
     }
     game.waitUntilKeyPressed();
     game.quitSDL();

@@ -30,7 +30,7 @@ void road::textureRoad(renderWindow& a)
     tex.push_back(a.loadTexture("highway20.png"));
 }
 
-void road::animateRoad(renderWindow& a, int speed)
+void road::animateRoad(renderWindow& a, float speed)
 {
     for(long long unsigned int i=0;i<tex.size();i++)
     {
