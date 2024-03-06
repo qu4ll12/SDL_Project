@@ -6,7 +6,7 @@
 class obsticale: public entity
 {
 public:
-    obsticale(float obsticale_w, float obsticale_h, SDL_Texture* _tex);
+    obsticale(float obsticale_x, float obsticale_y, float obsticale_w, float obsticale_h, SDL_Texture* _tex);
     void spawn(renderWindow& a, float speed);
     float getX();
     float getY();

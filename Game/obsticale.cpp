@@ -4,7 +4,8 @@
 
 using namespace std;
 
-obsticale::obsticale(float obsticale_w, float obsticale_h, SDL_Texture* _tex) : entity(obsticale_w,obsticale_h,_tex)
+obsticale::obsticale(float obsticale_x, float obsticale_y, float obsticale_w, float obsticale_h, SDL_Texture* _tex)
+    : entity(obsticale_x, obsticale_y,obsticale_w, obsticale_h, _tex)
 {
     o_w=obsticale_w;
     o_h=obsticale_h;
@@ -26,7 +27,7 @@ float obsticale::getY()
 
 void obsticale::spawn(renderWindow& a, float speed)
 {
-    entity b(o_w, o_h, tex);
+    entity b(0,0,o_w, o_h, tex);
 
     if (velocity<750)
     {

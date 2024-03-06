@@ -2,28 +2,36 @@
 #include "entity.h"
 #include "road.h"
 #include "obsticale.h"
+#include "button.h"
 
 using namespace std;
+
+int speed=5;
 
 int main(int argc, char* argv[])
 {
     renderWindow game(SCREEN_WIDTH,SCREEN_HEIGHT,WINDOW_TITLE);
     SDL_Texture* car = game.loadTexture("car.png");
     SDL_Texture* grass = game.loadTexture("grass.png");
-    SDL_Texture* _highway = game.loadTexture("highway1.png");
+    SDL_Texture* _highway = game.loadTexture("highway.png");
     SDL_Texture* _taxi = game.loadTexture("taxi.png");
-    obsticale taxi(71,134,_taxi);
+    SDL_Texture* button1 = game.loadTexture("template_button.png");
+    SDL_Texture* button2 = game.loadTexture("template_pressed_button.png");
+    button b(0,0,170,85,button1);
+    b.loadPress_button(button2);
+    obsticale taxi(0,0,71,134,_taxi);
     taxi.getX();
-    entity e_car(71,134,car);
-    entity e_grass(75,750,grass);
-    road highway(800,800,_highway);
-    highway.textureRoad(game);
+    entity e_car(0,0,71,134,car);
+    entity e_grass(0,0,75,750,grass);
+    road highway(0,0,800,800,_highway);
+    highway.textureRoad();
     float n=75;
     SDL_Event event;
+    b.unpress(game,30,30);
     game.renderTexture(e_grass,0,0,75,750);
     game.renderTexture(e_grass,75*5,0,75,750);
-    highway.animateRoad(game,4);
-    taxi.spawn(game,2);
+    highway.animateRoad(game,speed);
+    taxi.spawn(game,6);
     game.renderTexture(e_car,75,600,71,134);
     game.display();
 
@@ -36,22 +44,25 @@ int main(int argc, char* argv[])
                 if(event.key.keysym.scancode == SDL_SCANCODE_A || event.key.keysym.scancode == SDL_SCANCODE_LEFT)
                 {
                     if(n-75 > 0) n-=75;
-                    highway.animateRoad(game,4);
+                    highway.animateRoad(game,speed);
+                    b.unpress(game,30,30);
                     game.renderTexture(e_car,n,600,71,134);
-                    taxi.spawn(game,2);
+                    taxi.spawn(game,6);
                     game.renderTexture(e_grass,0,0,75,750);
                     game.renderTexture(e_grass,75*5,0,75,750);
+                    b.unpress(game,30,30);
                     game.display();
                 }
 
                 else if(event.key.keysym.scancode == SDL_SCANCODE_D || event.key.keysym.scancode == SDL_SCANCODE_RIGHT)
                 {
                     if(n+75 < 75*5) n+=75;
-                    highway.animateRoad(game,4);
+                    highway.animateRoad(game,speed);
                     game.renderTexture(e_car,n,600,71,134);
-                    taxi.spawn(game,2);
+                    taxi.spawn(game,6);
                     game.renderTexture(e_grass,0,0,75,750);
                     game.renderTexture(e_grass,75*5,0,75,750);
+                    b.unpress(game,30,30);
                     game.display();
                 }
                 else if(event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
@@ -59,18 +70,36 @@ int main(int argc, char* argv[])
                     exit(0);
                 }
             }
+            else if(event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                int x,y;
+                SDL_GetMouseState(&x, &y);
+                if (event.button.button == SDL_BUTTON_LEFT)
+                {
+                    for(int i=0;i<11;++i)
+                    {
+                        highway.animateRoad(game,speed);
+                        taxi.spawn(game,6);
+                        b.unpress(game,30,30);
+                        game.renderTexture(e_car,n,600,71,134);
+                        b.pressed(game,30,30);
+                        game.display();
+                    }
+                }
+            }
         }
 
-            if(n==taxi.getX() && taxi.getY()>=750-134*2-10)
+            if(n==taxi.getX() && taxi.getY()>=750-134*2-10 && taxi.getY()<=750)
             {
                 exit(0);
             }
-            else if(taxi.getY()>=750)
-            {
-                exit(0);
-            }
-            highway.animateRoad(game,4);
-            taxi.spawn(game,2);
+//            else if(taxi.getY()>=750)
+//            {
+//                exit(0);
+//            }
+            highway.animateRoad(game,speed);
+            taxi.spawn(game,6);
+            b.unpress(game,30,30);
             game.renderTexture(e_car,n,600,71,134);
             game.display();
     }

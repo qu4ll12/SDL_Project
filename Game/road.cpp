@@ -2,39 +2,27 @@
 
 using namespace std;
 
-road::road(float r_w, float r_h, SDL_Texture* r_tex) : entity(r_w, r_h, r_tex)
+road::road(float road_x, float road_y, float road_w, float road_h, SDL_Texture* r_tex)
+    : entity(road_x, road_y, road_w, road_h, r_tex)
 {
+    tex=r_tex;
+    frame_num=0;
 }
-
-void road::textureRoad(renderWindow& a)
+void road::textureRoad()
 {
-    tex.push_back(a.loadTexture("highway1.png"));
-    tex.push_back(a.loadTexture("highway2.png"));
-    tex.push_back(a.loadTexture("highway3.png"));
-    tex.push_back(a.loadTexture("highway4.png"));
-    tex.push_back(a.loadTexture("highway5.png"));
-    tex.push_back(a.loadTexture("highway6.png"));
-    tex.push_back(a.loadTexture("highway7.png"));
-    tex.push_back(a.loadTexture("highway8.png"));
-    tex.push_back(a.loadTexture("highway9.png"));
-    tex.push_back(a.loadTexture("highway10.png"));
-    tex.push_back(a.loadTexture("highway11.png"));
-    tex.push_back(a.loadTexture("highway12.png"));
-    tex.push_back(a.loadTexture("highway13.png"));
-    tex.push_back(a.loadTexture("highway14.png"));
-    tex.push_back(a.loadTexture("highway15.png"));
-    tex.push_back(a.loadTexture("highway16.png"));
-    tex.push_back(a.loadTexture("highway17.png"));
-    tex.push_back(a.loadTexture("highway18.png"));
-    tex.push_back(a.loadTexture("highway19.png"));
-    tex.push_back(a.loadTexture("highway20.png"));
-}
-
-void road::animateRoad(renderWindow& a, float speed)
-{
-    for(long long unsigned int i=0;i<tex.size();i++)
+    for(int i=0;i<20;i++)
     {
-        frame.push_back(entity(300,750,tex[i]));
+        road_x[i]=300*i;
+    }
+}
+
+void road::animateRoad(renderWindow& a, int speed)
+{
+    cnt=speed;
+
+    for(int i=0;i<20;++i)
+    {
+        frame.push_back(entity (road_x[i],0,300,750,tex));
     }
 
     if (frame_num>=frame.size()-1)
@@ -44,7 +32,7 @@ void road::animateRoad(renderWindow& a, float speed)
     }
     else
     {
-        a.renderTexture(frame[frame_num],75,0,300,750);
-        frame_num+=speed;
+       a.renderTexture(frame[frame_num],75,0,300,750);
+       frame_num+=speed;
     }
 }
