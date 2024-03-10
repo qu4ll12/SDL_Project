@@ -6,5 +6,16 @@
 class player: public entity
 {
 public:
-    player(float p_w, float p_h, SDL_Texture*)
+    player(float player_x, float player_y, float player_w, float player_h, SDL_Texture* texture);
+    void loadRender();
+    void defaultPlayer(renderWindow& a, int n);
+    void rightLane(renderWindow& a, int n);
+    void leftLane(renderWindow& a, int n);
+private:
+    float x[20];
+    float p_w,p_h;
+    std:: vector <entity> drift;
+    SDL_Texture* tex;
+    int frame_numr,frame_numl;
+    int cnt;
 };

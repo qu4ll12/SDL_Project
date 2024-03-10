@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="allTexture.h" />
 		<Unit filename="button.cpp" />
 		<Unit filename="button.h" />
 		<Unit filename="entity.cpp" />
@@ -40,6 +41,7 @@
 		<Unit filename="mousevent.h" />
 		<Unit filename="obsticale.cpp" />
 		<Unit filename="obsticale.h" />
+		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
 		<Unit filename="renderWindow.cpp" />
 		<Unit filename="renderWindow.h" />

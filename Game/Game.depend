@@ -1,16 +1,17 @@
 # depslib dependency file v1.0
-1709744030 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1710022179 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
 	"obsticale.h"
 	"button.h"
+	"player.h"
 
-1709440882 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
+1709828031 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
 	"renderWindow.h"
 	"entity.h"
 
-1709556235 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
+1709828081 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -24,7 +25,7 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1709743923 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
+1709744341 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
 	"road.h"
 
 1709743577 c:\sdlord\inisdl\sdl_project\game\road.h
@@ -40,10 +41,17 @@
 	"renderWindow.h"
 	"entity.h"
 
-1709734716 source:c:\sdlord\inisdl\sdl_project\game\button.cpp
+1709788073 source:c:\sdlord\inisdl\sdl_project\game\button.cpp
 	"button.h"
 
-1709734557 c:\sdlord\inisdl\sdl_project\game\button.h
+1709788021 c:\sdlord\inisdl\sdl_project\game\button.h
 	"renderWindow.h"
 	"entity.h"
+
+1710020504 c:\sdlord\inisdl\sdl_project\game\player.h
+	"renderWindow.h"
+	"entity.h"
+
+1710020852 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
+	"player.h"
 
