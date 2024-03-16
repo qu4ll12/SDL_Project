@@ -14,6 +14,8 @@ private:
     float velocity;
     float x;
     SDL_Texture* tex;
+    std:: vector <entity> frame;
+    int cnt;
     float o_w;
     float o_h;
 };

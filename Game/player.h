@@ -13,7 +13,7 @@ public:
     void leftLane(renderWindow& a, int n);
 private:
     float x[20];
-    float p_w,p_h;
+    float p_x,p_y,p_w,p_h;
     std:: vector <entity> drift;
     SDL_Texture* tex;
     int frame_numr,frame_numl;

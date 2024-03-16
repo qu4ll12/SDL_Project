@@ -16,6 +16,15 @@ void road::textureRoad()
     }
 }
 
+void road::stillRoad(renderWindow &a)
+{
+    for(int i=0;i<20;++i)
+    {
+        frame.push_back(entity (road_x[i],0,300,750,tex));
+    }
+
+    a.renderTexture(frame[frame_num],75,0,300,750);
+}
 void road::animateRoad(renderWindow& a, int speed)
 {
     cnt=speed;
