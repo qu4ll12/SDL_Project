@@ -10,81 +10,102 @@ player::player(float player_x, float player_y, float player_w, float player_h, S
     p_w=player_w;
     p_h=player_h;
     tex=texture;
-
-    frame_numr=3;
-    frame_numl=3;
-    cnt=0;
+    timer=0;
+    cnt=1;
 }
 
 void player::loadRender()
 {
-    for(int i=0;i<7;++i)
+    for(int i=0;i<3;++i)
     {
-        x[i]=i*p_w;
+        x[i]=i*71;
     }
 
-    for(int i=0;i<7;i++)
+    for(int i=0;i<12;i++)
     {
-        drift.push_back(entity (x[i],0,p_w,p_h,tex));
+        drift.push_back(entity (x[i],0,71,133,tex));
     }
 }
 
 void player::defaultPlayer(renderWindow &a, int n)
 {
-    entity b(x[3],0,p_w,p_h,tex);
-    a.renderTexture(b,n,600,p_w,p_h);
+    a.renderTexture(drift[0],n,600,71,133);
 }
 
-void player::rightLane(renderWindow& a, int n)
+void player::rightLane(renderWindow& a, float &n)
 {
-    if(frame_numr<6 && cnt==0)
+    for(int i=1;i<=cnt;i++)
     {
-        a.renderTexture(drift[frame_numr],n,600,p_w,p_h);
-        frame_numr++;
+        if(i%2!=0) a.renderTexture(drift[1],n+15*(i-1),600,71,133);
+        if(i%2==0) a.renderTexture(drift[2],n+15*(i-1),600,71,133);
+        if(i==6 && n+75 < 75*5)
+        {
+            n+=75;
+            a.renderTexture(drift[0],n,600,71,133);
+            break;
+        }
     }
-    else if(frame_numr==6)
-    {
-        a.renderTexture(drift[frame_numr],n,600,p_w,p_h);
-        frame_numr=6;
-        cnt=1;
-    }
-
-    if(cnt==1 && frame_numr>3)
-    {
-        a.renderTexture(drift[frame_numr],n,600,p_w,p_h);
-        frame_numr-=1;
-    }
-    else if(cnt==1 && frame_numr==3)
-    {
-        a.renderTexture(drift[frame_numr],n,600,p_w,p_h);
-        cnt=0;
-    }
+    cnt++;
 }
 
-void player::leftLane(renderWindow& a, int n)
+void player::rightLane_(renderWindow& a, float n)
 {
-    if(frame_numl>0 && cnt==0)
-    {
-        a.renderTexture(drift[frame_numl],n,600,p_w,p_h);
-        frame_numl--;
+    for(int i=1+timer;i<=cnt;i++)
+    {   if(timer==5)
+        {
+            a.renderTexture(drift[0],n,600,71,133);
+            break;
+        }
+        else
+        {
+            if(i%2!=0) a.renderTexture(drift[1],(n-75)+15*(i-1),600,71,133);
+            if(i%2==0) a.renderTexture(drift[2],(n-75)+15*(i-1),600,71,133);
+            a.renderTexture(drift[0],n,600,71,133);
+        }
     }
-    else if(frame_numl==0)
+    timer++;
+    if(timer==6)
     {
-        a.renderTexture(drift[frame_numl],n,600,p_w,p_h);
-        frame_numl=0;
         cnt=1;
-    }
-
-    if(cnt==1 && frame_numl<3)
-    {
-        a.renderTexture(drift[frame_numl],n,600,p_w,p_h);
-        frame_numl++;
-    }
-    else if(cnt==1 && frame_numl==3)
-    {
-        a.renderTexture(drift[frame_numl],n,600,p_w,p_h);
-        cnt=0;
+        timer=0;
     }
 }
 
+void player::leftLane(renderWindow& a, float &n)
+{
+    for(int i=1;i<=cnt;i++)
+    {
+        if(i%2!=0) a.renderTexture(drift[1],n-15*(i-1),600,71,133);
+        if(i%2==0) a.renderTexture(drift[2],n-15*(i-1),600,71,133);
+        if(i==6 && n-75 > 0)
+        {
+            n-=75;
+            a.renderTexture(drift[0],n,600,71,133);
+            break;
+        }
+    }
+    cnt++;
+}
 
+void player::leftLane_(renderWindow& a, float n)
+{
+    for(int i=1+timer;i<=cnt;i++)
+    {   if(timer==5)
+        {
+            a.renderTexture(drift[0],n,600,71,133);
+            break;
+        }
+        else
+        {
+            if(i%2!=0) a.renderTexture(drift[1],(n+75)-15*(i-1),600,71,133);
+            if(i%2==0) a.renderTexture(drift[2],(n+75)-15*(i-1),600,71,133);
+            a.renderTexture(drift[0],n,600,71,133);
+        }
+    }
+    timer++;
+    if(timer==6)
+    {
+        cnt=1;
+        timer=0;
+    }
+}

@@ -12,7 +12,8 @@ obsticale::obsticale(float obsticale_x, float obsticale_y, float obsticale_w, fl
     tex=_tex;
     x=((rand() % (4 - 1 + 1)) + 1);
     x*=75;
-    velocity=-134;
+    velocity=((rand() % (3 - 1 + 1)) + 1);
+    velocity*=-300;
     cnt=0;
 }
 
@@ -29,7 +30,7 @@ float obsticale::getY()
 void obsticale::spawn(renderWindow& a, float speed)
 {
     frame.push_back(entity (0,0,71,134,tex));
-    frame.push_back(entity (72,0,71,134,tex));
+    frame.push_back(entity (71,0,71,134,tex));
 
     if (velocity<=750 && cnt<=30)
     {
@@ -37,7 +38,7 @@ void obsticale::spawn(renderWindow& a, float speed)
         velocity+=speed;
         cnt++;
     }
-    else if (velocity<750 && cnt>=30 && cnt<61)
+    else if (velocity<750 && cnt>30 && cnt<61)
     {
         a.renderTexture(frame[1],x,velocity,71,134);
         velocity+=speed;
@@ -45,6 +46,15 @@ void obsticale::spawn(renderWindow& a, float speed)
     }
     else if (cnt==61)
     {
+        a.renderTexture(frame[1],x,velocity,71,134);
+        cnt=0;
+    }
+    else
+    {
+        x=((rand() % (4 - 1 + 1)) + 1);
+        x*=75;
+        velocity=((rand() % (3 - 1 + 1)) + 1);
+        velocity*=-300;
         cnt=0;
     }
 }
