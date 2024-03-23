@@ -35,7 +35,6 @@
 		<Unit filename="Untitled1.txt" />
 		<Unit filename="button.cpp" />
 		<Unit filename="button.h" />
-		<Unit filename="energy.h" />
 		<Unit filename="entity.cpp" />
 		<Unit filename="entity.h" />
 		<Unit filename="main.cpp" />

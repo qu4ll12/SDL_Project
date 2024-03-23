@@ -4,3 +4,10 @@
 #include "entity.h"
 
 
+class energy
+{
+public:
+
+private:
+
+};

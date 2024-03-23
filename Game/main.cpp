@@ -7,8 +7,8 @@
 
 using namespace std;
 
-int speed=6;
-int m=10;
+int speed=4;
+int m=6;
 renderWindow game(SCREEN_WIDTH,SCREEN_HEIGHT,WINDOW_TITLE);
 SDL_Texture* car = game.loadTexture("jeep.png");
 SDL_Texture* grass = game.loadTexture("grass.png");
@@ -21,9 +21,11 @@ SDL_Texture* setting_button= game.loadTexture("setting_button.png");
 SDL_Texture* game_over=game.loadTexture("game_over.png");
 SDL_Texture* menu_window=game.loadTexture("menu.png");
 SDL_Texture* exit_menubutton=game.loadTexture("exit_menuButton.png");
+SDL_Texture* coin=game.loadTexture("energy.png");
+
 int main(int argc, char* argv[])
 {
-    player player(75,600,145,133,car);
+    player player(75,600,71,140,car);
     player.loadRender();
     button b(0,0,170,85,button1);
     button exit_(139,250+170+40,170,85,exit_button);
@@ -33,9 +35,9 @@ int main(int argc, char* argv[])
     entity e_grass(0,0,75,750,grass);
     entity you_die(0,0,500,500,game_over);
     entity menu(0,0,335,335,menu_window);
-    obsticale taxi(0,0,71,134,_taxi);
-    obsticale taxi1(0,0,71,134,_taxi);
-    obsticale taxi2(0,0,71,134,_taxi);
+    obsticale taxi(0,0,71,141,_taxi);
+    obsticale taxi1(0,0,71,141,_taxi);
+    obsticale taxi2(0,0,71,141,_taxi);
     road highway(0,0,800,800,_highway);
     highway.textureRoad();
     float n=75*2;
