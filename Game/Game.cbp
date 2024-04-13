@@ -32,11 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Untitled1.txt" />
 		<Unit filename="button.cpp" />
 		<Unit filename="button.h" />
+		<Unit filename="energy.cpp" />
+		<Unit filename="energy.h" />
 		<Unit filename="entity.cpp" />
 		<Unit filename="entity.h" />
+		<Unit filename="event.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mousevent.h" />
 		<Unit filename="obsticale.cpp" />

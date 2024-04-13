@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1711197136 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1713002105 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
 	"obsticale.h"
 	"button.h"
 	"player.h"
+	"energy.h"
 
 1709828031 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
 	"renderWindow.h"
@@ -25,19 +26,19 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1710491246 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
+1711698372 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
 	"road.h"
 
-1710387184 c:\sdlord\inisdl\sdl_project\game\road.h
+1711646442 c:\sdlord\inisdl\sdl_project\game\road.h
 	"renderWindow.h"
 	"entity.h"
 
-1711195813 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
+1712849310 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
 	"renderWindow.h"
 	"entity.h"
 	"obsticale.h"
 
-1710310525 c:\sdlord\inisdl\sdl_project\game\obsticale.h
+1712849053 c:\sdlord\inisdl\sdl_project\game\obsticale.h
 	"renderWindow.h"
 	"entity.h"
 
@@ -48,10 +49,17 @@
 	"renderWindow.h"
 	"entity.h"
 
-1711091035 c:\sdlord\inisdl\sdl_project\game\player.h
+1712998824 c:\sdlord\inisdl\sdl_project\game\player.h
 	"renderWindow.h"
 	"entity.h"
 
-1711197123 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
+1712998824 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
 	"player.h"
+
+1712819576 source:c:\sdlord\inisdl\sdl_project\game\energy.cpp
+	"energy.h"
+
+1712819576 c:\sdlord\inisdl\sdl_project\game\energy.h
+	"renderWindow.h"
+	"entity.h"
 

@@ -10,38 +10,35 @@ road::road(float road_x, float road_y, float road_w, float road_h, SDL_Texture* 
 }
 void road::textureRoad()
 {
-    for(int i=0;i<20;i++)
+    for(int i=0;i<30;i++)
     {
-        road_x[i]=300*i;
+        road_y[i]=5*i;
     }
 }
 
 void road::stillRoad(renderWindow &a)
 {
-    for(int i=0;i<20;++i)
+    for(int i=0;i<30;++i)
     {
-        frame.push_back(entity (road_x[i],0,300,750,tex));
+        frame.push_back(entity (0,road_y[i],450,750,tex));
     }
-
-    a.renderTexture(frame[frame_num],75,0,300,750);
+    a.renderTexture(frame[frame_num],0,0,450,750);
 }
 void road::animateRoad(renderWindow& a, int speed)
 {
-    cnt=speed;
 
-    for(int i=0;i<20;++i)
+    for(int i=0;i<30;++i)
     {
-        frame.push_back(entity (road_x[i],0,300,750,tex));
+        frame.push_back(entity (0,road_y[i],450,750,tex));
     }
-
     if (frame_num>=frame.size()-1)
     {
-        a.renderTexture(frame[frame_num],75,0,300,750);
+        a.renderTexture(frame[frame_num],0,0,450,750);
         frame_num=0;
     }
     else
     {
-       a.renderTexture(frame[frame_num],75,0,300,750);
+       a.renderTexture(frame[frame_num],0,0,450,750);
        frame_num+=speed;
     }
 }

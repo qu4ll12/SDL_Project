@@ -13,7 +13,7 @@ public:
 private:
     SDL_Texture* tex;
     std::vector <entity> frame;
-    float road_x[20];
+    float road_y[30];
     int cnt;
     int frame_num;
 };
