@@ -46,6 +46,7 @@ void obsticale::reset()
     velocity*=-difficulty;
 }
 
+
 void obsticale::stillO(renderWindow& a)
 {
     if (velocity<=750 && cnt<=30)
@@ -60,7 +61,7 @@ void obsticale::stillO(renderWindow& a)
 
 void obsticale::spawn(renderWindow& a, float speed)
 {
-
+    //cout<<velocity<<endl;
     if (velocity<=750 && cnt<=30)
     {
         a.renderTexture(frame[0],x,velocity,o_w,o_h);
@@ -78,7 +79,7 @@ void obsticale::spawn(renderWindow& a, float speed)
         a.renderTexture(frame[1],x,velocity,o_w,o_h);
         cnt=0;
     }
-    if (velocity>750)
+    else
     {
         reset();
     }

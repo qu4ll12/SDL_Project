@@ -24,6 +24,17 @@ renderWindow::renderWindow (int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WIN
         printf("SDL Image is unnable to run: ",SDL_GetError());
     }
 
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+    {
+        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
+
+    gMusic= Mix_LoadMUS("background_music.wav");
+    if( gMusic == NULL )
+    {
+        printf( "Failed to load Music! SDL_Mixer Error: %s\n", Mix_GetError() );
+    }
+
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
                                               SDL_RENDERER_PRESENTVSYNC);
 }
@@ -43,6 +54,37 @@ SDL_Texture* renderWindow::loadTexture(const char* filename)
     }
 
     return texture;
+}
+
+Mix_Chunk* renderWindow::loadSound(const char * filename)
+{
+    Mix_Chunk* gChunk = Mix_LoadWAV(filename);
+
+    if (gChunk == nullptr)
+    {
+        printf( "Failed to load Sound! SDL_Mixer Error: %s\n", Mix_GetError() );
+    }
+
+    return gChunk;
+}
+
+void renderWindow::playSound(Mix_Chunk* sound)
+{
+    Mix_PlayChannel( -1, sound, 0 );
+}
+
+void renderWindow::playMusic()
+{
+    Mix_PlayMusic( gMusic, -1 );
+}
+
+void renderWindow::musicVolume(int a)
+{
+    int vol=Mix_VolumeMusic(a);
+}
+void renderWindow::resumeMusic()
+{
+    Mix_ResumeMusic();
 }
 
 void renderWindow::renderTexture(entity& e_entity, float x, float y, float w, float h)
@@ -80,8 +122,11 @@ void renderWindow::waitUntilKeyPressed()
 
 void renderWindow::quitSDL()
 {
-    SDL_Quit();
-    IMG_Quit();
+    Mix_FreeMusic( gMusic );
+    gMusic= NULL;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    Mix_Quit();
+    SDL_Quit();
+    IMG_Quit();
 }

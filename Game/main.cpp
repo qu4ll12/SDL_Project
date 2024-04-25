@@ -5,6 +5,8 @@
 #include "button.h"
 #include "player.h"
 #include "energy.h"
+#include "SDL_mixer.h"
+#include "SDL_ttf.h"
 
 using namespace std;
 
@@ -16,19 +18,31 @@ void collision(vector<obsticale> enemies)
     for(int i=0;i<enemies.size();i++)
     {
         cout<<enemies[i].getY()<<endl;
-//        for(int j=0;j<enemies.size();j++)
-//        {
-//            cout<<2<<endl;
-//            if(i!=j && enemies[i].getX()== enemies[j].getX())
-//            {
-//                while(enemies[i].getY()+141+5>enemies[j].getY() || enemies[j].getY()+141+5>enemies[i].getY())
-//                {
-//                    enemies[i].reset();
-//                    cout<<"reset"<<endl;
-//                }
-//            }
-//        }
+        for(int j=0;j<enemies.size();j++)
+        {
+            if(i!=j && enemies[i].getX()== enemies[j].getX())
+            {
+                if(enemies[i].getY()+141+5>enemies[j].getY() )
+                {
+                    enemies[i].reset();
+                    cout<<"reset"<<endl;
+                }
+            }
+        }
     }
+}
+
+void res(renderWindow &game, button resume)
+{
+    resume.unpress(game);
+    game.display();
+    SDL_Delay(750);
+    resume.pressed(game);
+    game.display();
+    SDL_Delay(750);
+    resume.idle(game);
+    game.display();
+    SDL_Delay(750);
 }
 renderWindow game(SCREEN_WIDTH,SCREEN_HEIGHT,WINDOW_TITLE);
 SDL_Texture* car = game.loadTexture("jeep.png");
@@ -52,6 +66,11 @@ SDL_Texture* information=game.loadTexture("information_button.png");
 SDL_Texture* information_txt=game.loadTexture("information.png");
 SDL_Texture* resume_but=game.loadTexture("resume_button.png");
 SDL_Texture* slide_black=game.loadTexture("slide_button-modified.png");
+SDL_Texture* traffic_light=game.loadTexture("traffic_light.png");
+SDL_Texture* instruction=game.loadTexture("instruction.png");
+SDL_Texture* a_button=game.loadTexture("a_button.png");
+SDL_Texture* d_button=game.loadTexture("d_button.png");
+
 int main(int argc, char* argv[])
 {
     player player(77,600,71,140,car);
@@ -67,6 +86,9 @@ int main(int argc, char* argv[])
     button main_screen(139,510+85+20,170,85,main_screen_);
     button question(450-43-43-43,750-43-43,43,43,ques_but);
     button infor(43+43,750-43-43,43,43,information);
+    button traffic(300,-150,83,288,traffic_light);
+    button a_but(109+10,307,85,85,a_button);
+    button d_but(257-10,307,85,85,d_button);
     entity you_die(0,0,450,750,game_over);
     entity menu(0,0,335,335,menu_window);
     entity roadrumble(0,0,275,180,title);
@@ -75,6 +97,7 @@ int main(int argc, char* argv[])
     entity slide_button2(0,0,26,32,slide_but);
     entity slide_button3(0,0,26,32,slide_black);
     entity infor_txt(0,0,450,750,information_txt);
+    entity instruct(0,0,450,750,instruction);
     float n=77+76;
     float button_state=121+55+87;
     float button_state1=121+55+87;
@@ -83,6 +106,8 @@ int main(int argc, char* argv[])
     obsticale taxi(0,0,71,141,_taxi); enemies.push_back(taxi);
     obsticale taxi1(0,0,71,141,_taxi); enemies.push_back(taxi1);
     obsticale taxi2(0,0,71,141,_taxi); enemies.push_back(taxi2);
+    game.musicVolume(87);
+    game.playMusic();
 //    obsticale taxi3(0,0,71,141,_taxi); enemies.push_back(taxi3);
 //    obsticale taxi4(0,0,71,141,_taxi); enemies.push_back(taxi4);
 //    obsticale taxi5(0,0,71,141,_taxi); enemies.push_back(taxi5);
@@ -92,7 +117,6 @@ int main(int argc, char* argv[])
 //    obsticale taxi9(0,0,71,141,_taxi); enemies.push_back(taxi9);
 //    obsticale taxi10(0,0,71,141,_taxi); enemies.push_back(taxi10);
     road highway(0,0,800,800,_highway);
-    highway.textureRoad();
     SDL_Event event;
     bool d=false;
     bool d1=false;
@@ -103,9 +127,7 @@ int main(int argc, char* argv[])
     while(true)
     {
         n=77+76;
-        taxi.reset();
-        taxi1.reset();
-        taxi2.reset();
+        for(int i=0;i<enemies.size();i++) enemies[i].reset();
         energy.reset();
         while(!d)
         {
@@ -142,6 +164,37 @@ int main(int argc, char* argv[])
                     setting.unpress(game);
                     infor.unpress(game);
                     question.pressed(game);
+                    SDL_Delay(150);
+                    SDL_Event e;
+                    bool ques=true;
+                    while(ques)
+                    {
+                        game.renderTexture(instruct,0,0,450,750);
+                        a_but.unpress(game);
+                        d_but.pressed(game);
+                        game.display();
+                        SDL_Delay(150);
+
+                        game.renderTexture(instruct,0,0,450,750);
+                        a_but.idle(game);
+                        d_but.idle(game);
+                        game.display();
+                        SDL_Delay(150);
+
+                        game.renderTexture(instruct,0,0,450,750);
+                        a_but.pressed(game);
+                        d_but.unpress(game);
+                        game.display();
+                        SDL_Delay(150);
+
+                        while(SDL_PollEvent(&e))
+                        {
+                            if(e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+                            {
+                                ques=false;
+                            }
+                        }
+                    }
                 }
                 else if (event.button.button == SDL_BUTTON_LEFT && infor.event())
                 {
@@ -178,6 +231,8 @@ int main(int argc, char* argv[])
                     int x,y;
                     while(!d1)
                     {
+                        game.musicVolume(button_state-186);
+                        game.resumeMusic();
                         while(SDL_PollEvent(&e))
                         {
                             SDL_GetMouseState(&x,&y);
@@ -192,11 +247,11 @@ int main(int argc, char* argv[])
                                 exit_menu.pressed(game);
                                 d1=true;
                             }
-                            else if(y>=41+230-38 && y<=41+230+30 && x>=181 && x<=346 && e.button.button==SDL_BUTTON_LEFT)
+                            else if(y>=41+230-38 && y<=41+230+30 && x>=199-13 && x<=354-13 && e.button.button==SDL_BUTTON_LEFT)
                             {
                                 button_state=x;
                             }
-                            else if(y>=121+230-38 && y<=121+230+30 && x>=181 && x<=346 && e.button.button==SDL_BUTTON_LEFT)
+                            else if(y>=121+230-38 && y<=121+230+30 && x>=199-13 && x<=354-13 && e.button.button==SDL_BUTTON_LEFT)
                             {
                                 button_state1=x;
                             }
@@ -275,14 +330,18 @@ int main(int argc, char* argv[])
             game.display();
         }
 
+        highway.stillRoad(game);
+        player.defaultPlayer(game,n);
+        res(game,traffic);
+        for(int i=0;i<enemies.size();i++) enemies[i].reset();
+        energy.reset();
+
         while(d)
         {
             highway.animateRoad(game,speed);
             energy.spawn(game,m);
-//            collision(enemies);
-            taxi.spawn(game,m);
-            taxi1.spawn(game,m);
-            taxi2.spawn(game,m);
+            collision(enemies);
+            for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
             player.defaultPlayer(game,n);
             if(e==true)
             {
@@ -308,9 +367,8 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            taxi.spawn(game,m);
-                            taxi1.spawn(game,m);
-                            taxi2.spawn(game,m);
+                            collision(enemies);
+                            for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.leftLane(game,n);
                             game.display();
                         }
@@ -319,9 +377,8 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            taxi.spawn(game,m);
-                            taxi1.spawn(game,m);
-                            taxi2.spawn(game,m);
+                            collision(enemies);
+                            for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.leftLane_(game,n);
                             game.display();
                         }
@@ -333,9 +390,8 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            taxi.spawn(game,m);
-                            taxi1.spawn(game,m);
-                            taxi2.spawn(game,m);
+                            collision(enemies);
+                            for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.rightLane(game,n);
                             game.display();
                         }
@@ -344,9 +400,8 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            taxi.spawn(game,m);
-                            taxi1.spawn(game,m);
-                            taxi2.spawn(game,m);
+                            collision(enemies);
+                            for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.rightLane_(game,n);
                             game.display();
                         }
@@ -362,9 +417,7 @@ int main(int argc, char* argv[])
                             while(SDL_PollEvent(&event))
                             {
                                 highway.stillRoad(game);
-                                taxi.stillO(game);
-                                taxi1.stillO(game);
-                                taxi2.stillO(game);
+                                for(int i=0;i<enemies.size();i++) enemies[i].stillO(game);
                                 energy.stillE(game);
                                 if (event.button.button == SDL_BUTTON_LEFT && resume.event())
                                 {
@@ -374,8 +427,8 @@ int main(int argc, char* argv[])
                                     setting.unpress(game);
                                     infor.unpress(game);
                                     player.defaultPlayer(game,n);
+                                    SDL_Delay(200);
                                     game.display();
-                                    SDL_Delay(350);
                                     dresume=true;
                                 }
                                 else if (event.button.button == SDL_BUTTON_LEFT && exit_.event())
@@ -520,12 +573,20 @@ int main(int argc, char* argv[])
                             player.defaultPlayer(game,n);
                             game.display();
                         }
+                        highway.stillRoad(game);
+                        for(int i=0;i<enemies.size();i++) enemies[i].stillO(game);
+                        energy.stillE(game);
+                        player.defaultPlayer(game,n);
+                        res(game,traffic);
                     }
                 }
             }
-            if(taxi.event(n) || taxi1.event(n) || taxi2.event(n))
+            if(enemies[0].event(n) || enemies[1].event(n) || enemies[2].event(n))
             {
                 SDL_Event event1;
+                highway.stillRoad(game);
+                for(int i=0;i<enemies.size();i++) enemies[i].stillO(game);
+                energy.stillE(game);
                 game.renderTexture(you_die,0,0,450,750);
                 play_again.unpress(game);
                 exit_red.unpress(game);
@@ -535,25 +596,26 @@ int main(int argc, char* argv[])
                 {
                     while(SDL_PollEvent(&event1))
                     {
+                        highway.stillRoad(game);
+                        for(int i=0;i<enemies.size();i++) enemies[i].stillO(game);
+                        energy.stillE(game);
                         game.renderTexture(you_die,0,0,450,750);
                         if(event1.button.button == SDL_BUTTON_LEFT && play_again.event())
                         {
                             play_again.pressed(game);
                             exit_red.unpress(game);
                             main_screen.unpress(game);
-                            again_bro=true;
                             n=77+76;
-                            taxi.reset();
-                            taxi1.reset();
-                            taxi2.reset();
+                            for(int i=0;i<enemies.size();i++) enemies[i].reset();
                             energy.reset();
+                            again_bro=true;
                             break;
                         }
                         else if(event1.button.button == SDL_BUTTON_LEFT && exit_red.event())
                         {
                             play_again.unpress(game);
                             exit_red.pressed(game);
-                            main_screen.unpress(game);\
+                            main_screen.unpress(game);
                             SDL_Delay(150);
                             exit(0);
                         }

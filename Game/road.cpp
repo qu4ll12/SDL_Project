@@ -2,14 +2,11 @@
 
 using namespace std;
 
-road::road(float road_x, float road_y, float road_w, float road_h, SDL_Texture* r_tex)
-    : entity(road_x, road_y, road_w, road_h, r_tex)
+road::road(float r_x, float r_y, float r_w, float r_h, SDL_Texture* r_tex)
+    : entity(r_x, r_y, r_w, r_h, r_tex)
 {
     tex=r_tex;
     frame_num=0;
-}
-void road::textureRoad()
-{
     for(int i=0;i<30;i++)
     {
         road_y[i]=5*i;

@@ -7,7 +7,6 @@ class road: public entity
 {
 public:
     road(float road_x, float road_y, float road_w, float road_h, SDL_Texture* r_tex);
-    void textureRoad();
     void animateRoad(renderWindow& a, int speed);
     void stillRoad(renderWindow &a);
 private:

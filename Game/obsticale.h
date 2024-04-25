@@ -17,8 +17,9 @@ public:
 protected:
     float difficulty;
 private:
-    float velocity;
     float x;
+    float velocity;
+    int initiate;
     SDL_Texture* tex;
     std:: vector <entity> frame;
     int cnt;
