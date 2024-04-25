@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1714011518 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1714031992 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -60,10 +60,10 @@
 1712998824 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
 	"player.h"
 
-1713420296 source:c:\sdlord\inisdl\sdl_project\game\energy.cpp
+1714030149 source:c:\sdlord\inisdl\sdl_project\game\energy.cpp
 	"energy.h"
 
-1712819576 c:\sdlord\inisdl\sdl_project\game\energy.h
+1714030149 c:\sdlord\inisdl\sdl_project\game\energy.h
 	"renderWindow.h"
 	"entity.h"
 

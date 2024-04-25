@@ -55,9 +55,18 @@ void energy::stillE(renderWindow &a)
 {
     a.renderTexture(animation[timer],e_x,e_y,e_w,e_h);
 }
+
+float energy::getX()
+{
+    return e_x;
+}
+float energy::getY()
+{
+    return e_y;
+}
 bool energy::event(float &n)
 {   bool d;
-    if(n<e_x+22+22 && n>e_x-21-21 && e_y>560 && e_y<=740) d=true;
+    if(n<e_x+22+22 && n>e_x-21-21 && e_y>560 && e_y<=740) {d=true; reset();}
     else d=false;
 
     return d;

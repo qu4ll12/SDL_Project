@@ -13,21 +13,31 @@ using namespace std;
 int speed=2;
 int m=7;
 vector <obsticale> enemies;
-void collision(vector<obsticale> enemies)
+void collision(vector<obsticale> enemies, energy &energy)
 {
     for(int i=0;i<enemies.size();i++)
     {
-        cout<<enemies[i].getY()<<endl;
+//        cout<<enemies[i].getY()<<endl;
         for(int j=0;j<enemies.size();j++)
         {
             if(i!=j && enemies[i].getX()== enemies[j].getX())
             {
-                if(enemies[i].getY()+141+5>enemies[j].getY() )
+                while(((enemies[i].getY()+138+5>enemies[j].getY() && enemies[i].getY()<enemies[j].getY())
+                   || (enemies[i].getY()<enemies[j].getY()+138+5 && enemies[i].getY()>enemies[j].getY()))
+                   && enemies[i].getY()<0 && enemies[j].getY()<0)
                 {
                     enemies[i].reset();
                     cout<<"reset"<<endl;
                 }
             }
+        }
+        while(((enemies[i].getY()+138+5>energy.getY() && enemies[i].getY()<energy.getY())
+           || (energy.getY()+37+8>enemies[i].getY() && enemies[i].getY()>energy.getY()))
+           && (-enemies[i].getX()+energy.getX()<=24 && -enemies[i].getX()+energy.getX()>=21)
+           && energy.getY()<0)
+        {
+            energy.reset();
+            cout<<"reset1111"<<endl;
         }
     }
 }
@@ -103,9 +113,9 @@ int main(int argc, char* argv[])
     float button_state1=121+55+87;
     float button_state2=121+55+87;
     energy energy(0,0,21,37,coin);
-    obsticale taxi(0,0,71,141,_taxi); enemies.push_back(taxi);
-    obsticale taxi1(0,0,71,141,_taxi); enemies.push_back(taxi1);
-    obsticale taxi2(0,0,71,141,_taxi); enemies.push_back(taxi2);
+    obsticale taxi(0,0,71,138,_taxi); enemies.push_back(taxi);
+    obsticale taxi1(0,0,71,138,_taxi); enemies.push_back(taxi1);
+    obsticale taxi2(0,0,71,138,_taxi); enemies.push_back(taxi2);
     game.musicVolume(87);
     game.playMusic();
 //    obsticale taxi3(0,0,71,141,_taxi); enemies.push_back(taxi3);
@@ -340,7 +350,7 @@ int main(int argc, char* argv[])
         {
             highway.animateRoad(game,speed);
             energy.spawn(game,m);
-            collision(enemies);
+            collision(enemies,energy);
             for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
             player.defaultPlayer(game,n);
             if(e==true)
@@ -367,7 +377,7 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            collision(enemies);
+                            collision(enemies,energy);
                             for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.leftLane(game,n);
                             game.display();
@@ -377,7 +387,7 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            collision(enemies);
+                            collision(enemies,energy);
                             for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.leftLane_(game,n);
                             game.display();
@@ -390,7 +400,7 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            collision(enemies);
+                            collision(enemies,energy);
                             for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.rightLane(game,n);
                             game.display();
@@ -400,7 +410,7 @@ int main(int argc, char* argv[])
                         {
                             highway.animateRoad(game,speed);
                             energy.spawn(game,m);
-                            collision(enemies);
+                            collision(enemies,energy);
                             for(int i=0;i<enemies.size();i++) enemies[i].spawn(game,m);
                             player.rightLane_(game,n);
                             game.display();
@@ -659,7 +669,6 @@ int main(int argc, char* argv[])
             }
             else if(energy.event(n))
             {
-                energy.reset();
                 e=true;
             }
             game.display();
