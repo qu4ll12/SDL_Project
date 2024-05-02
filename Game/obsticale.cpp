@@ -12,9 +12,10 @@ obsticale::obsticale(float obsticale_x, float obsticale_y, float obsticale_w, fl
     tex=_tex;
     x=((rand() % (3 - 0 + 1)) + 0);
     x=77+76*x;
-    velocity=((rand() % (3 - 1 + 1)) + 1);
     difficulty=300;
-    velocity*=-difficulty;
+    if(difficulty==150) velocity=((rand() % (-150 - -450 + 1)) + -450);
+    else if(difficulty==300) velocity=((rand() % (-300 - -900 + 1)) + -900);
+    else if(difficulty==400) velocity=((rand() % (-400 - -1200 + 1)) + -1200);
     cnt=0;
     frame.push_back(entity (0,0,o_w,o_h,tex));
     frame.push_back(entity (o_w,0,o_w,o_h,tex));
@@ -30,6 +31,12 @@ float obsticale::getY()
     return velocity;
 }
 
+void obsticale::resetX()
+{
+    x=((rand() % (3 - 0 + 1)) + 0);
+    x=77+76*x;
+}
+
 void obsticale::setDiff(vector <obsticale> enemies, float n)
 {
     for(int i=0;i<enemies.size();i++)
@@ -42,8 +49,9 @@ void obsticale::reset()
 {
     x=((rand() % (3 - 0 + 1)) + 0);
     x=77+76*x;
-    velocity=((rand() % (3 - 1 + 1)) + 1);
-    velocity*=-difficulty;
+    if(difficulty==150) velocity=((rand() % (-150 - -450 + 1)) + -450);
+    else if(difficulty==300) velocity=((rand() % (-300 - -900 + 1)) + -900);
+    else if(difficulty==400) velocity=((rand() % (-400 - -1200 + 1)) + -1200);
 }
 
 

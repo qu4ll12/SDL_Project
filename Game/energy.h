@@ -14,6 +14,7 @@ public:
     float getX();
     float getY();
     bool event(float &n);
+    bool outOfFuel();
 private:
     float e_x,e_y,e_w,e_h;
     std::vector <entity> animation;

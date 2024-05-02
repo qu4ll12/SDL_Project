@@ -16,13 +16,16 @@ class renderWindow
 public:
 	renderWindow (int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WINDOW_TITLE);
 	SDL_Texture* loadTexture(const char * filename);
-	void renderTexture(entity& e_entity,  float x, float y, float w, float h);
+	SDL_Window* getWindow();
 	Mix_Chunk* loadSound(const char * filename);
+	TTF_Font* loadFont(const char * filename, int size);
+	SDL_Texture* renderText(const char* text, TTF_Font* font, SDL_Color textColor);
+	void renderTexture(entity& e_entity, float x, float y, float w, float h);
 	void playSound(Mix_Chunk* sound);
 	void playMusic();
 	void resumeMusic();
 	void musicVolume(int vol);
-	SDL_Window* getWindow();
+	void soundVolume(Mix_Chunk* &sound, int vol);
 	void display();
 	void quitSDL();
 	void waitUntilKeyPressed();

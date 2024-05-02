@@ -10,7 +10,6 @@ button::button(float button_x, float button_y, float button_w, float button_h, S
     b_w = button_w;
     b_h = button_h;
     button_tex = texture;
-    frame_num=0;
 }
 
 void button::unpress(renderWindow& a)
@@ -31,6 +30,54 @@ void button::pressed(renderWindow& a)
     a.renderTexture(frame2,b_x,b_y,b_w,b_h);
 }
 
+void button::handleEvent(SDL_Event* e)
+{
+    if( !event() )
+    {
+        mCurrentSprite = BUTTON_MOUSE_OUT;
+    }
+    //Mouse is inside button
+    else
+    {
+        //Set mouse over sprite
+        switch( e->type )
+        {
+            case SDL_MOUSEMOTION:
+            mCurrentSprite = BUTTON_MOUSE_OVER_MOTION;
+            break;
+
+            case SDL_MOUSEBUTTONDOWN:
+            mCurrentSprite = BUTTON_MOUSE_DOWN;
+            break;
+
+            case SDL_MOUSEBUTTONUP:
+            mCurrentSprite = BUTTON_MOUSE_UP;
+            break;
+        }
+    }
+}
+
+void button::render(renderWindow &a)
+{
+    entity frame(0+mCurrentSprite*b_w,0,b_w,b_h,button_tex);
+    a.renderTexture(frame,b_x,b_y,b_w,b_h);
+}
+
+bool button::ifPress(renderWindow &a)
+{
+    int d = mCurrentSprite;
+    bool result;
+    if(d==1)
+    {
+        result=true;
+        entity frame(0+b_w,0,b_w,b_h,button_tex);
+        a.renderTexture(frame,b_x,b_y,b_w,b_h);
+        a.display();
+    }
+    else result=false;
+
+    return result;
+}
 bool button::event()
 {
     bool d;
