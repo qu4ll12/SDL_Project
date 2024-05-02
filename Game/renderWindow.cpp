@@ -29,7 +29,7 @@ renderWindow::renderWindow (int SCREEN_WIDTH, int SCREEN_HEIGHT, const char* WIN
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
     }
 
-    gMusic= Mix_LoadMUS("background_music.wav");
+    gMusic= Mix_LoadMUS("sound\\background_music.wav");
     if( gMusic == NULL )
     {
         printf( "Failed to load Music! SDL_Mixer Error: %s\n", Mix_GetError() );

@@ -13,6 +13,7 @@ using namespace std;
 int speed=2;
 int m=7;
 int point=0;
+int point_w=35;
 vector <obsticale> enemies;
 vector <button> button_menu;
 vector <button> button_menu_resume;
@@ -67,39 +68,40 @@ void res(renderWindow &game, button resume)
     game.display();
     SDL_Delay(750);
 }
+
 renderWindow game(SCREEN_WIDTH,SCREEN_HEIGHT,WINDOW_TITLE);
-SDL_Texture* car = game.loadTexture("jeep.png");
-SDL_Texture* title=game.loadTexture("road_rumble.png");
-SDL_Texture* _highway = game.loadTexture("highway1.png");
-SDL_Texture* _taxi = game.loadTexture("taxi2.png");
-SDL_Texture* button1 = game.loadTexture("template_button1.png");
-SDL_Texture* start_button= game.loadTexture("start_button1.png");
-SDL_Texture* exit_button= game.loadTexture("exit_button.png");
-SDL_Texture* setting_button= game.loadTexture("setting_button.png");
-SDL_Texture* game_over=game.loadTexture("game_over.png");
-SDL_Texture* menu_window=game.loadTexture("menu.png");
-SDL_Texture* exit_menubutton=game.loadTexture("exit_menuButton.png");
-SDL_Texture* coin=game.loadTexture("energy1.png");
-SDL_Texture* again=game.loadTexture("play_again.png");
-SDL_Texture* exit_buttonred=game.loadTexture("exit_buttonred.png");
-SDL_Texture* main_screen_=game.loadTexture("main_screen.png");
-SDL_Texture* slide_but=game.loadTexture("slide_button.png");
-SDL_Texture* ques_but=game.loadTexture("qumark_button.png");
-SDL_Texture* information=game.loadTexture("information_button.png");
-SDL_Texture* information_txt=game.loadTexture("information.png");
-SDL_Texture* resume_but=game.loadTexture("resume_button.png");
-SDL_Texture* slide_black=game.loadTexture("slide_button-modified.png");
-SDL_Texture* traffic_light=game.loadTexture("traffic_light.png");
-SDL_Texture* instruction=game.loadTexture("instruction.png");
-SDL_Texture* a_button=game.loadTexture("a_button.png");
-SDL_Texture* d_button=game.loadTexture("d_button.png");
+SDL_Texture* car = game.loadTexture("texture\\jeep.png");
+SDL_Texture* title=game.loadTexture("texture\\road_rumble.png");
+SDL_Texture* _highway = game.loadTexture("texture\\highway1.png");
+SDL_Texture* _taxi = game.loadTexture("texture\\taxi2.png");
+SDL_Texture* button1 = game.loadTexture("texture\\template_button1.png");
+SDL_Texture* start_button= game.loadTexture("texture\\start_button1.png");
+SDL_Texture* exit_button= game.loadTexture("texture\\exit_button.png");
+SDL_Texture* setting_button= game.loadTexture("texture\\setting_button.png");
+SDL_Texture* game_over=game.loadTexture("texture\\game_over.png");
+SDL_Texture* menu_window=game.loadTexture("texture\\menu.png");
+SDL_Texture* exit_menubutton=game.loadTexture("texture\\exit_menuButton.png");
+SDL_Texture* coin=game.loadTexture("texture\\energy1.png");
+SDL_Texture* again=game.loadTexture("texture\\play_again.png");
+SDL_Texture* exit_buttonred=game.loadTexture("texture\\exit_buttonred.png");
+SDL_Texture* main_screen_=game.loadTexture("texture\\main_screen.png");
+SDL_Texture* slide_but=game.loadTexture("texture\\slide_button.png");
+SDL_Texture* ques_but=game.loadTexture("texture\\qumark_button.png");
+SDL_Texture* information=game.loadTexture("texture\\information_button.png");
+SDL_Texture* information_txt=game.loadTexture("texture\\information.png");
+SDL_Texture* resume_but=game.loadTexture("texture\\resume_button.png");
+SDL_Texture* slide_black=game.loadTexture("texture\\slide_button-modified.png");
+SDL_Texture* traffic_light=game.loadTexture("texture\\traffic_light.png");
+SDL_Texture* instruction=game.loadTexture("texture\\instruction.png");
+SDL_Texture* a_button=game.loadTexture("texture\\a_button.png");
+SDL_Texture* d_button=game.loadTexture("texture\\d_button.png");
 
-Mix_Chunk* levelUp=game.loadSound("levelUp.wav");
-Mix_Chunk* idle=game.loadSound("idle.wav");
-Mix_Chunk* click=game.loadSound("click.wav");
+Mix_Chunk* levelUp=game.loadSound("sound\\levelUp.wav");
+Mix_Chunk* idle=game.loadSound("sound\\idle.wav");
+Mix_Chunk* click=game.loadSound("sound\\click.wav");
 
-TTF_Font* gFont=game.loadFont("font.ttf", 20);
-TTF_Font* gFont1=game.loadFont("PIXELITE.ttf", 70);
+TTF_Font* gFont=game.loadFont("font\\font.ttf", 20);
+TTF_Font* gFont1=game.loadFont("font\\PIXELITE.ttf", 70);
 SDL_Color textColor={0,0,0};
 SDL_Color textColor1={255,255,255};
 SDL_Texture* esc=game.renderText("press esc to exit", gFont, textColor);
@@ -342,7 +344,11 @@ int main(int argc, char* argv[])
             string dbrr=to_string(point);
             SDL_Texture* point_=game.renderText(dbrr.c_str(), gFont1, textColor1);
             entity point__(0,0,500,500,point_);
-            game.renderTexture(point__,150,30,30,70);
+            if(point<10) point_w=35;
+            else if(point>=10 && point<100) point_w=70;
+            else if(point>=100 && point<1000) point_w=105;
+            else if(point>=1000) point_w=140;
+            game.renderTexture(point__,150,30,point_w,70);
             if(e==true)
             {
                 if(cnt>=24) {e=false; cnt=0;}
@@ -376,7 +382,7 @@ int main(int argc, char* argv[])
                                 spawn(enemies,energy,game,m);
                                 energy.spawn(game,m);
                                 game.renderTexture(score,10,30,170,70);
-                                game.renderTexture(point__,150,30,30,70);
+                                game.renderTexture(point__,150,30,point_w,70);
                                 player.leftLane(game,n);
                                 game.display();
                             }
@@ -387,7 +393,7 @@ int main(int argc, char* argv[])
                                 spawn(enemies,energy,game,m);;
                                 energy.spawn(game,m);
                                 game.renderTexture(score,10,30,170,70);
-                                game.renderTexture(point__,150,30,30,70);
+                                game.renderTexture(point__,150,30,point_w,70);
                                 player.leftLane_(game,n);
                                 game.display();
                             }
@@ -403,7 +409,7 @@ int main(int argc, char* argv[])
                                 spawn(enemies,energy,game,m);
                                 energy.spawn(game,m);
                                 game.renderTexture(score,10,30,170,70);
-                                game.renderTexture(point__,150,30,30,70);
+                                game.renderTexture(point__,150,30,point_w,70);
                                 player.rightLane(game,n);
                                 game.display();
                             }
@@ -414,7 +420,7 @@ int main(int argc, char* argv[])
                                 spawn(enemies,energy,game,m);
                                 energy.spawn(game,m);
                                 game.renderTexture(score,10,30,170,70);
-                                game.renderTexture(point__,150,30,30,70);
+                                game.renderTexture(point__,150,30,point_w,70);
                                 player.rightLane_(game,n);
                                 game.display();
                             }
