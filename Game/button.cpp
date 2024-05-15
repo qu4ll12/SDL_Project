@@ -72,7 +72,6 @@ bool button::ifPress(renderWindow &a)
         result=true;
         entity frame(0+b_w,0,b_w,b_h,button_tex);
         a.renderTexture(frame,b_x,b_y,b_w,b_h);
-        a.display();
     }
     else result=false;
 

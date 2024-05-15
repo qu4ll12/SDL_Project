@@ -7,10 +7,6 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
-static int SCREEN_HEIGHT=750;
-static int SCREEN_WIDTH=450;
-static const char* WINDOW_TITLE="Car Race";
-
 class renderWindow
 {
 public:

@@ -13,39 +13,53 @@ player::player(float player_x, float player_y, float player_w, float player_h, S
     timer=0;
     timer1=0;
     timer2=0;
+    timerE=0;
     cnt=1;
+    shield=false;
 }
 
 void player::loadRender()
 {
-    for(int i=0;i<5;++i)
+    for(int i=0;i<6;++i)
     {
         x[i]=i*71;
     }
 
-    for(int i=0;i<12;i++)
+    for(int i=0;i<6;i++)
     {
         drift.push_back(entity (x[i],0,p_w,p_h,tex));
+    }
+
+    for(int i=0;i<13;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            explosion.push_back(entity (i*96,144,96,92,tex));
+        }
     }
 }
 
 void player::defaultPlayer(renderWindow &a, float &n)
 {
-    if(timer1<=30)
+    if(!shield)
     {
-        a.renderTexture(drift[0],n,600,p_w,p_h);
-        timer1++;
+        if(timer1<=30)
+        {
+            a.renderTexture(drift[0],n,600,p_w,p_h);
+            timer1++;
+        }
+        else if(timer1>30 && timer1<60)
+        {
+            a.renderTexture(drift[4],n,600,p_w,p_h);
+            timer1++;
+        }
+        else if(timer1==60)
+        {
+            a.renderTexture(drift[4],n,600,p_w,p_h);
+            timer1=0;
+        }
     }
-    else if(timer1>30 && timer1<60)
-    {
-        a.renderTexture(drift[4],n,600,p_w,p_h);
-        timer1++;
-    }
-    else if(timer1==60)
-    {
-        a.renderTexture(drift[4],n,600,p_w,p_h);
-        timer1=0;
-    }
+    else a.renderTexture(drift[5],n,600,p_w,p_h);
 }
 
 void player::levelUp(renderWindow &a, float &n)
@@ -64,6 +78,25 @@ void player::levelUp(renderWindow &a, float &n)
     {
         a.renderTexture(drift[3],n,600,p_w,p_h);
         timer2=0;
+    }
+}
+
+void player::die(renderWindow &a,float &n)
+{
+    if(timerE<=12)
+    {
+        if(timerE%2!=0) a.renderTexture(drift[0],n,600,p_w,p_h);
+        timerE++;
+    }
+    else if(timerE>12 && timerE<=explosion.size()-1)
+    {
+        a.renderTexture(explosion[timerE-13],n-10,600,96,92);
+        timerE++;
+    }
+    else if(timerE==explosion.size())
+    {
+        a.renderTexture(explosion[timerE-13],n-10,600,96,92);
+        timerE=0;
     }
 }
 
@@ -145,4 +178,18 @@ void player::leftLane_(renderWindow& a, float &n)
     }
 }
 
+void player::shieldOn()
+{
+    shield=true;
+}
 
+void player::shieldOff()
+{
+    shield=false;
+    cout<<"skibidi"<<endl;
+}
+
+bool player::shieldStatus()
+{
+    return shield;
+}

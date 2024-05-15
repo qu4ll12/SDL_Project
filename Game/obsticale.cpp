@@ -13,9 +13,9 @@ obsticale::obsticale(float obsticale_x, float obsticale_y, float obsticale_w, fl
     x=((rand() % (3 - 0 + 1)) + 0);
     x=77+76*x;
     difficulty=300;
-    if(difficulty==150) velocity=((rand() % (-150 - -450 + 1)) + -450);
-    else if(difficulty==300) velocity=((rand() % (-300 - -900 + 1)) + -900);
-    else if(difficulty==400) velocity=((rand() % (-400 - -1200 + 1)) + -1200);
+    speed=7;
+    int difficulty1=300;
+    velocity=((rand() % (-difficulty1 - -difficulty1*3 + 1)) + -difficulty1*3);
     cnt=0;
     frame.push_back(entity (0,0,o_w,o_h,tex));
     frame.push_back(entity (o_w,0,o_w,o_h,tex));
@@ -31,13 +31,23 @@ float obsticale::getY()
     return velocity;
 }
 
+float obsticale::getH()
+{
+    return o_h;
+}
+
 void obsticale::resetX()
 {
     x=((rand() % (3 - 0 + 1)) + 0);
     x=77+76*x;
 }
 
-void obsticale::setDiff(vector <obsticale> enemies, float n)
+void obsticale::setSpeed(int s)
+{
+    speed=s;
+}
+
+void obsticale::setDiff(vector <obsticale> &enemies, float n)
 {
     for(int i=0;i<enemies.size();i++)
     {
@@ -49,9 +59,8 @@ void obsticale::reset()
 {
     x=((rand() % (3 - 0 + 1)) + 0);
     x=77+76*x;
-    if(difficulty==150) velocity=((rand() % (-150 - -450 + 1)) + -450);
-    else if(difficulty==300) velocity=((rand() % (-300 - -900 + 1)) + -900);
-    else if(difficulty==400) velocity=((rand() % (-400 - -1200 + 1)) + -1200);
+    int difficulty1=difficulty;
+    velocity=((rand() % (-difficulty1 - -difficulty1*3 + 1)) + -difficulty1*3);
 }
 
 
@@ -67,7 +76,7 @@ void obsticale::stillO(renderWindow& a)
     }
 }
 
-void obsticale::spawn(renderWindow& a, float speed)
+void obsticale::spawn(renderWindow& a)
 {
     //cout<<velocity<<endl;
     if (velocity<=750 && cnt<=30)
@@ -91,14 +100,21 @@ void obsticale::spawn(renderWindow& a, float speed)
     {
         reset();
     }
+    if(difficulty-0.5>150) difficulty-=0.5;
+    if(speed+0,05<9) speed+=0,05;
 }
 
 bool obsticale::event(float n)
 {
     bool d;
 
-    if(n==x && velocity>=750-o_h*2-10 && velocity<=750-30) d=true;
+    if(n==x && velocity>=750-o_h*2-10 && velocity<=750-50) d=true;
     else d=false;
 
     return d;
+}
+
+float obsticale::returnSpeed()
+{
+    return speed;
 }

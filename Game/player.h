@@ -14,10 +14,17 @@ public:
     void leftLane(renderWindow& a, float &n);
     void leftLane_(renderWindow& a, float &n);
     void levelUp(renderWindow&a, float &n);
+    void die(renderWindow&a, float &n);
+    void shieldOn();
+    void shieldOff();
+    bool shieldStatus();
 private:
     float x[20];
     float p_x,p_y,p_w,p_h;
-    std:: vector <entity> drift;
-    SDL_Texture* tex;
     float cnt,timer,timer1,timer2;
+    int timerE;
+    std:: vector <entity> drift;
+    std:: vector <entity> explosion;
+    SDL_Texture* tex;
+    bool shield;
 };

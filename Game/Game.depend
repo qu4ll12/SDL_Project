@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1714659869 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1715736781 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -7,14 +7,18 @@
 	"button.h"
 	"player.h"
 	"energy.h"
+	"item.h"
 	"SDL_mixer.h"
 	"SDL_ttf.h"
+	"def.h"
+	"class.h"
+	"fstream"
 
-1714630947 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
+1715757029 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
 	"renderWindow.h"
 	"entity.h"
 
-1714617398 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
+1715678591 c:\sdlord\inisdl\sdl_project\game\renderwindow.h
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -37,33 +41,73 @@
 	"renderWindow.h"
 	"entity.h"
 
-1714193622 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
+1715676394 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
 	"renderWindow.h"
 	"entity.h"
 	"obsticale.h"
 
-1714375211 c:\sdlord\inisdl\sdl_project\game\obsticale.h
+1715072141 c:\sdlord\inisdl\sdl_project\game\obsticale.h
 	"renderWindow.h"
 	"entity.h"
 
-1714613915 source:c:\sdlord\inisdl\sdl_project\game\button.cpp
+1714986052 source:c:\sdlord\inisdl\sdl_project\game\button.cpp
 	"button.h"
 
 1714613915 c:\sdlord\inisdl\sdl_project\game\button.h
 	"renderWindow.h"
 	"entity.h"
 
-1712998824 c:\sdlord\inisdl\sdl_project\game\player.h
+1715249682 c:\sdlord\inisdl\sdl_project\game\player.h
 	"renderWindow.h"
 	"entity.h"
 
-1712998824 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
+1715250288 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
 	"player.h"
 
-1714103609 source:c:\sdlord\inisdl\sdl_project\game\energy.cpp
+1715262459 source:c:\sdlord\inisdl\sdl_project\game\energy.cpp
 	"energy.h"
 
 1714036072 c:\sdlord\inisdl\sdl_project\game\energy.h
 	"renderWindow.h"
 	"entity.h"
+
+1715754036 c:\sdlord\inisdl\sdl_project\game\def.h
+
+1715260783 source:c:\sdlord\inisdl\sdl_project\game\item.cpp
+	"item.h"
+
+1715260783 c:\sdlord\inisdl\sdl_project\game\item.h
+	"renderWindow.h"
+	"entity.h"
+
+1715691849 c:\sdlord\inisdl\sdl_project\game\structs.h
+	"renderWindow.h"
+	"entity.h"
+	"road.h"
+	"obsticale.h"
+	"button.h"
+	"player.h"
+	"energy.h"
+	"item.h"
+	"SDL_mixer.h"
+	"SDL_ttf.h"
+	"def.h"
+
+1715757029 c:\sdlord\inisdl\sdl_project\game\class.h
+	"renderWindow.h"
+	"entity.h"
+	"road.h"
+	"obsticale.h"
+	"button.h"
+	"player.h"
+	"energy.h"
+	"item.h"
+	"sound.h"
+	"SDL_mixer.h"
+	"SDL_ttf.h"
+	"def.h"
+
+1715757040 c:\sdlord\inisdl\sdl_project\game\sound.h
+	<bits/stdc++.h>
+	"renderWindow.h"
 

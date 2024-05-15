@@ -1,7 +1,7 @@
-#include "energy.h"
+#include "item.h"
 using namespace std;
 
-energy::energy(float x, float y, float w, float h,SDL_Texture* texture) :
+item::item(float x, float y, float w, float h,SDL_Texture* texture) :
     entity(x,y,w,h,texture)
 {
     e_w=w;
@@ -25,7 +25,7 @@ energy::energy(float x, float y, float w, float h,SDL_Texture* texture) :
     animation.push_back(entity(0,85,fuel,48,tex));
 }
 
-void energy::reset()
+void item::reset()
 {
     e_x=(rand() % (3 - 0 + 1)) + 0;
     e_x=102+75*e_x;
@@ -33,7 +33,7 @@ void energy::reset()
     timer=0;
 }
 
-void energy::spawn(renderWindow &a, float speed)
+void item::spawn(renderWindow &a, float speed)
 {
     if(timer==animation.size()-1-2)
     {
@@ -59,33 +59,34 @@ void energy::spawn(renderWindow &a, float speed)
     else if(fuel+speed/15>186) fuel=186;
 }
 
-void energy::stillE(renderWindow &a)
+void item::stillE(renderWindow &a)
 {
     a.renderTexture(animation[timer],e_x,e_y,e_w,e_h);
     a.renderTexture(animation[36],256,34,186,48);
     a.renderTexture(animation[37],256,34,fuel,48);
 }
-float energy::getX()
+float item::getX()
 {
     return e_x;
 }
-float energy::getY()
+float item::getY()
 {
     return e_y;
 }
-bool energy::event(float &n)
+bool item::event(float &n)
 {   bool d;
-    if(n<e_x+22+22 && n>e_x-21-21 && e_y>560 && e_y<=740) {d=true; fuel=0; reset();}
+    if(n<e_x+22+22 && n>e_x-21-21 && e_y>560 && e_y<=740) {d=true; fuel=0;}
     else d=false;
 
     return d;
 }
 
-bool energy::outOfFuel()
+bool item::outOfFuel()
 {
     bool d;
 
-    if(fuel == 186) {fuel=0; d=true;}    else d=false;
+    if(fuel == 186) {d=true; fuel=0;}    else d=false;
 
     return d;
 }
+
