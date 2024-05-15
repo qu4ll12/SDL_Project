@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1715736781 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1715762539 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -41,12 +41,12 @@
 	"renderWindow.h"
 	"entity.h"
 
-1715676394 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
+1715764012 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
 	"renderWindow.h"
 	"entity.h"
 	"obsticale.h"
 
-1715072141 c:\sdlord\inisdl\sdl_project\game\obsticale.h
+1715763570 c:\sdlord\inisdl\sdl_project\game\obsticale.h
 	"renderWindow.h"
 	"entity.h"
 
@@ -71,7 +71,7 @@
 	"renderWindow.h"
 	"entity.h"
 
-1715754036 c:\sdlord\inisdl\sdl_project\game\def.h
+1715764013 c:\sdlord\inisdl\sdl_project\game\def.h
 
 1715260783 source:c:\sdlord\inisdl\sdl_project\game\item.cpp
 	"item.h"
@@ -93,7 +93,7 @@
 	"SDL_ttf.h"
 	"def.h"
 
-1715757029 c:\sdlord\inisdl\sdl_project\game\class.h
+1715778223 c:\sdlord\inisdl\sdl_project\game\class.h
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -102,12 +102,19 @@
 	"player.h"
 	"energy.h"
 	"item.h"
-	"sound.h"
+	"soundEffect.h"
 	"SDL_mixer.h"
 	"SDL_ttf.h"
 	"def.h"
 
 1715757040 c:\sdlord\inisdl\sdl_project\game\sound.h
+	<bits/stdc++.h>
+	"renderWindow.h"
+
+1715758323 source:c:\sdlord\inisdl\sdl_project\game\soundeffect.cpp
+	"soundEffect.h"
+
+1715758308 c:\sdlord\inisdl\sdl_project\game\soundeffect.h
 	<bits/stdc++.h>
 	"renderWindow.h"
 

@@ -34,9 +34,9 @@
 		</Compiler>
 		<Unit filename="button.cpp" />
 		<Unit filename="button.h" />
+		<Unit filename="class.h" />
 		<Unit filename="def.h" />
 		<Unit filename="energy.cpp" />
-		<Unit filename="energy.h" />
 		<Unit filename="entity.cpp" />
 		<Unit filename="entity.h" />
 		<Unit filename="event.h" />
@@ -52,7 +52,8 @@
 		<Unit filename="renderWindow.h" />
 		<Unit filename="road.cpp" />
 		<Unit filename="road.h" />
-		<Unit filename="structs.h" />
+		<Unit filename="sound.cpp" />
+		<Unit filename="sound.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

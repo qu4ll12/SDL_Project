@@ -131,18 +131,18 @@ ofstream output("score.txt");
 void res(image& resources, graphic &gfx)
 {
     gfx.traffic.unpress(resources.game);
-    resources.game.playSound(resources.l_sound);
+    gfx.sound[6].playSound();
     resources.game.display();
     SDL_Delay(750);
     gfx.traffic.pressed(resources.game);
-    resources.game.playSound(resources.l_sound);
+    gfx.sound[6].playSound();
     resources.game.display();
     SDL_Delay(750);
     gfx.traffic.idle(resources.game);
-    resources.game.playSound(resources.l_sound);
+    gfx.sound[6].playSound();
     resources.game.display();
     SDL_Delay(750);
-    resources.game.playSound(resources.s_sound);
+    gfx.sound[7].playSound();
 }
 
 void menu(image& resources, graphic& gfx)
@@ -158,7 +158,7 @@ void menu(image& resources, graphic& gfx)
                 exit(0);
             }
             if (event.button.button == SDL_BUTTON_LEFT) {
-                resources.game.playSound(resources.click);
+                gfx.sound[0].playSound();
                 if (gfx.button_menu[0].event()) {
                     for (int i = 0; i < gfx.button_menu.size(); i++) {
                         if (i == 0) gfx.button_menu[i].pressed(resources.game);
@@ -186,6 +186,8 @@ void menu(image& resources, graphic& gfx)
                             resources.game.renderTexture(gfx.slide_button, gfx.button_states[0], 41 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
                             resources.game.renderTexture(gfx.slide_button1, gfx.button_states[1], 121 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
                             resources.game.renderTexture(gfx.slide_button2, gfx.button_states[2], 199 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
+                            for(int i=0;i<gfx.sound.size();i++) {gfx.sound[i].soundVolume(gfx.button_states[1] - 186);}
+                            cout<<gfx.button_states[1]<<endl;
                             if (e.type == SDL_QUIT) {
                                 exit(0);
                             }
@@ -269,9 +271,9 @@ void menu(image& resources, graphic& gfx)
                         {
                             resources.game.renderTexture(gfx.instruct, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
                             resources.game.renderTexture(gfx.chutinh, 450 - 210, 720, 200, 20);
-                            if(i==0) {gfx.a_but.unpress(resources.game); gfx.d_but.pressed(resources.game);}
+                            if(i==0) {gfx.a_but.unpress(resources.game); gfx.d_but.pressed(resources.game); gfx.sound[0].playSound();}
                             else if(i==1) {gfx.a_but.idle(resources.game); gfx.d_but.idle(resources.game);}
-                            else if(i==2) {gfx.a_but.pressed(resources.game); gfx.d_but.unpress(resources.game);}
+                            else if(i==2) {gfx.a_but.pressed(resources.game); gfx.d_but.unpress(resources.game); gfx.sound[0].playSound();}
                             resources.game.display();
                             SDL_Delay(150);
                         }
@@ -346,7 +348,7 @@ void game_loop(image& resources, graphic& gfx)
                     case SDLK_a:
                     if(gfx.axis_X>77)
                     {
-                        resources.game.playSound(resources.moving);
+                        gfx.sound[1].playSound();
                         for(int i=0;i<6;i++)
                         {
                             gfx.highway.animateRoad(resources.game,speed);
@@ -370,7 +372,7 @@ void game_loop(image& resources, graphic& gfx)
                     case SDLK_d:
                     if(gfx.axis_X<76*4)
                     {
-                        resources.game.playSound(resources.moving);
+                        gfx.sound[1].playSound();
                         for(int i=0;i<6;i++)
                         {
                             gfx.highway.animateRoad(resources.game,speed);
@@ -411,7 +413,7 @@ void game_loop(image& resources, graphic& gfx)
                             }
                             if (event.button.button == SDL_BUTTON_LEFT)
                             {
-                                resources.game.playSound(resources.click);
+                                gfx.sound[0].playSound();
                                 if (gfx.button_menu_resume[0].event())
                                 {
                                     for(int i=0;i<gfx.button_menu_resume.size();i++)
@@ -446,6 +448,7 @@ void game_loop(image& resources, graphic& gfx)
                                             resources.game.renderTexture(gfx.slide_button,gfx.button_states[0],41+230,SLIDE_WIDTH,SLIDE_HEIGHT);
                                             resources.game.renderTexture(gfx.slide_button1,gfx.button_states[1],121+230,SLIDE_WIDTH,SLIDE_HEIGHT);
                                             resources.game.renderTexture(gfx.slide_button3,gfx.button_states[2],199+230,SLIDE_WIDTH,SLIDE_HEIGHT);
+                                            for(int i=0;i<gfx.sound.size();i++) {gfx.sound[i].soundVolume(gfx.button_states[1] - 186);}
                                             if(gfx.exit_menu.event() && e.button.button==SDL_BUTTON_LEFT)
                                             {
                                                 gfx.exit_menu.pressed(resources.game);
@@ -517,7 +520,7 @@ void game_loop(image& resources, graphic& gfx)
            || gfx.object[2].outOfFuel() || (gfx.object[0].event(gfx.axis_X) && !gfx.user.shieldStatus()))
         {
             SDL_Event event1;
-            resources.game.playSound(resources.explosion);
+            gfx.sound[2].playSound();
             string best_string;
             input>>best_string;
             int best_w,best;
@@ -561,7 +564,7 @@ void game_loop(image& resources, graphic& gfx)
                     }
                     if(event1.button.button == SDL_BUTTON_LEFT)
                     {
-                        resources.game.playSound(resources.click);
+                        gfx.sound[0].playSound();
                         if(gfx.button_menu_die[0].event())
                         {
                             for(int i=0;i<gfx.button_menu_die.size();i++){
@@ -625,7 +628,7 @@ void game_loop(image& resources, graphic& gfx)
         }
         else if(gfx.object[0].event(gfx.axis_X) && gfx.user.shieldStatus())
         {
-            resources.game.playSound(resources.shield_break);
+            gfx.sound[5].playSound();
             gfx.user.shieldOff();
             gfx.object[0].reset();
             point++;
@@ -633,13 +636,13 @@ void game_loop(image& resources, graphic& gfx)
         else if(gfx.object[2].event(gfx.axis_X))
         {
             resources.e=true;
-            resources.game.playSound(resources.levelUp);
+            gfx.sound[4].playSound();
             gfx.object[2].reset();
             point++;
         }
         else if(gfx.object[1].event(gfx.axis_X))
         {
-            resources.game.playSound(resources.shield_consume);
+            gfx.sound[3].playSound();
             gfx.user.shieldOn();
             gfx.object[1].reset();
         }

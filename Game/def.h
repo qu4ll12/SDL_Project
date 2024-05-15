@@ -23,3 +23,7 @@
 #define EXIT_MENU_HEIGHT 15
 #define speed 2
 #define default_X 153
+#define MENU_WIDTH 335
+#define MENU_HEIGHT 335
+#define HIGHWAY_WIDTH 800
+#define HIGHWAY_HEIGHT 800

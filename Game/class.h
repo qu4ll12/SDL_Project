@@ -8,7 +8,7 @@
 #include "player.h"
 #include "energy.h"
 #include "item.h"
-#include "sound.h"
+#include "soundEffect.h"
 #include "SDL_mixer.h"
 #include "SDL_ttf.h"
 #include "def.h"
@@ -50,15 +50,14 @@ public:
     SDL_Texture* bomb;
     SDL_Texture* amor;
 
-    Mix_Chunk* levelUp;
-    Mix_Chunk* idle;
-    Mix_Chunk* click;
-    Mix_Chunk* moving;
-    Mix_Chunk* l_sound;
-    Mix_Chunk* s_sound;
-    Mix_Chunk* explosion;
-    Mix_Chunk* shield_consume;
-    Mix_Chunk* shield_break;
+    Mix_Chunk* c_levelUp;
+    Mix_Chunk* c_click;
+    Mix_Chunk* c_moving;
+    Mix_Chunk* c_l_sound;
+    Mix_Chunk* c_s_sound;
+    Mix_Chunk* c_explosion;
+    Mix_Chunk* c_shield_consume;
+    Mix_Chunk* c_shield_break;
 
     TTF_Font* gFont;
     TTF_Font* gFont1;
@@ -104,15 +103,14 @@ public:
         bomb = game.loadTexture("texture\\tnt.png");
         amor = game.loadTexture("texture\\shield.png");
 
-        levelUp = game.loadSound("sound\\levelUp.wav");
-        idle = game.loadSound("sound\\idle.wav");
-        click = game.loadSound("sound\\click.wav");
-        moving = game.loadSound("sound\\moving.wav");
-        l_sound = game.loadSound("sound\\traffic_light.wav");
-        s_sound = game.loadSound("sound\\start_sound.wav");
-        explosion = game.loadSound("sound\\tnt.wav");
-        shield_consume = game.loadSound("sound\\shield.wav");
-        shield_break = game.loadSound("sound\\shield_break.wav");
+        c_levelUp = game.loadSound("sound\\levelUp.wav");
+        c_click = game.loadSound("sound\\click.wav");
+        c_moving = game.loadSound("sound\\moving.wav");
+        c_l_sound = game.loadSound("sound\\traffic_light.wav");
+        c_s_sound = game.loadSound("sound\\start_sound.wav");
+        c_explosion = game.loadSound("sound\\tnt.wav");
+        c_shield_consume = game.loadSound("sound\\shield.wav");
+        c_shield_break = game.loadSound("sound\\shield_break.wav");
 
         gFont = game.loadFont("font\\upheavtt.ttf", 20);
         gFont1 = game.loadFont("font\\upheavtt.ttf", 70);
@@ -171,6 +169,14 @@ public:
     obsticale taxi1;
     obsticale taxi2;
     road highway;
+    soundEffect levelUp;
+    soundEffect click;
+    soundEffect moving;
+    soundEffect l_sound;
+    soundEffect s_sound;
+    soundEffect explosion;
+    soundEffect shield_consume;
+    soundEffect shield_break;
 
     std::vector<obsticale> enemies;
     std::vector<int> button_states;
@@ -179,6 +185,7 @@ public:
     std::vector<button> button_menu_die;
     std::vector<button> setting_menu;
     std::vector<item> object;
+    std::vector<soundEffect> sound;
 
     graphic(image& resources)
         : user(77, 600, PLAYER_WIDTH, PLAYER_HEIGHT, resources.car),
@@ -193,13 +200,13 @@ public:
           play_again(35, 510, BUTTON_WIDTH, BUTTON_HEIGHT, resources.again),
           main_screen(139, 510 + 85 + 20, BUTTON_WIDTH, BUTTON_HEIGHT, resources.main_screen_),
           exit_red(35 + 170 + 40, 510, BUTTON_WIDTH, BUTTON_HEIGHT, resources.exit_buttonred),
-          infor(S_BUTTON_WH * 2, 750 - S_BUTTON_WH * 2, S_BUTTON_WH, S_BUTTON_WH, resources.information),
-          question(450 - S_BUTTON_WH * 3, 750 - S_BUTTON_WH * 2, S_BUTTON_WH, S_BUTTON_WH, resources.ques_but),
+          infor(S_BUTTON_WH * 2, SCREEN_HEIGHT - S_BUTTON_WH * 2, S_BUTTON_WH, S_BUTTON_WH, resources.information),
+          question(SCREEN_WIDTH - S_BUTTON_WH * 3, SCREEN_HEIGHT - S_BUTTON_WH * 2, S_BUTTON_WH, S_BUTTON_WH, resources.ques_but),
           traffic(300, -150, TRAFFIC_LIGHT_WIDTH, TRAFFIC_LIGHT_HEIGHT, resources.traffic_light),
           a_but(109 + 10, 307, BUTTON_HEIGHT, BUTTON_HEIGHT, resources.a_button),
           d_but(257 - 10, 307, BUTTON_HEIGHT, BUTTON_HEIGHT, resources.d_button),
           you_die(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, resources.game_over),
-          menu(0, 0, 335, 335, resources.menu_window),
+          menu(0, 0, MENU_WIDTH, MENU_HEIGHT, resources.menu_window),
           roadrumble(0, 0, TITLE_WIDTH, TITLE_HEIGHT, resources.title),
           slide_button(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, resources.slide_but),
           slide_button1(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, resources.slide_but),
@@ -219,10 +226,17 @@ public:
           taxi(0, 0, TAXI_WIDTH, TAXI_HEIGHT, resources._taxi),
           taxi1(0, 0, TAXI_WIDTH, TAXI_HEIGHT, resources._taxi),
           taxi2(0, 0, TAXI_WIDTH, TAXI_HEIGHT, resources._taxi),
-          highway(0, 0, 800, 800, resources._highway)
-    {
-        for(int i=0;i<3;i++) button_states.push_back(121 + 55 + 87),
+          highway(0, 0, HIGHWAY_WIDTH, HIGHWAY_HEIGHT, resources._highway),
+          levelUp(resources.c_levelUp),
+          click(resources.c_click),
+          moving(resources.c_moving),
+          l_sound(resources.c_l_sound),
+          s_sound(resources.c_s_sound),
+          explosion(resources.c_explosion),
+          shield_consume(resources.c_shield_consume),
+          shield_break(resources.c_shield_break)
 
+    {
         button_menu_resume.push_back(resume);
         button_menu_resume.push_back(setting_resume);
         button_menu_resume.push_back(exit_resume);
@@ -249,12 +263,20 @@ public:
         enemies.push_back(taxi1);
         enemies.push_back(taxi2);
 
+        sound.push_back(click);
+        sound.push_back(moving);
+        sound.push_back(explosion);
+        sound.push_back(shield_consume);
+        sound.push_back(levelUp);
+        sound.push_back(shield_break);
+        sound.push_back(l_sound);
+        sound.push_back(s_sound);
+
         user.loadRender();
 
+        for(int i=0;i<3;i++) button_states.push_back(121 + 55 + 87),
         resources.game.musicVolume(SOUND_VOLUME);
-        resources.game.soundVolume(resources.levelUp, SOUND_VOLUME);
-        resources.game.soundVolume(resources.idle, SOUND_VOLUME);
-        resources.game.soundVolume(resources.click, SOUND_VOLUME);
+        for(int i=0;i<sound.size();i++) sound[i].soundVolume(SOUND_VOLUME);
         resources.game.playMusic();
     }
 };

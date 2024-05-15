@@ -3,10 +3,10 @@
 #include <bits/stdc++.h>
 #include "renderWindow.h"
 
-class sound
+class soundEffect
 {
 public:
-    sound(Mix_Chunk* gChunk);
+    soundEffect(Mix_Chunk* gChunk);
     void playSound();
     void soundVolume(int vol);
 private:

@@ -25,7 +25,7 @@ private:
     float o_w;
     float o_h;
     float speed;
-    int initiate,cnt;
+    int initiate,timer;
     SDL_Texture* tex;
     std:: vector <entity> frame;
 };

@@ -16,7 +16,7 @@ obsticale::obsticale(float obsticale_x, float obsticale_y, float obsticale_w, fl
     speed=7;
     int difficulty1=300;
     velocity=((rand() % (-difficulty1 - -difficulty1*3 + 1)) + -difficulty1*3);
-    cnt=0;
+    timer=0;
     frame.push_back(entity (0,0,o_w,o_h,tex));
     frame.push_back(entity (o_w,0,o_w,o_h,tex));
 }
@@ -66,11 +66,11 @@ void obsticale::reset()
 
 void obsticale::stillO(renderWindow& a)
 {
-    if (velocity<=750 && cnt<=30)
+    if (velocity<=750 && timer<=30)
     {
         a.renderTexture(frame[0],x,velocity,o_w,o_h);
     }
-    else if (velocity<750 && cnt>30 && cnt<=61)
+    else if (velocity<750 && timer>30 && timer<=61)
     {
         a.renderTexture(frame[1],x,velocity,o_w,o_h);
     }
@@ -79,29 +79,29 @@ void obsticale::stillO(renderWindow& a)
 void obsticale::spawn(renderWindow& a)
 {
     //cout<<velocity<<endl;
-    if (velocity<=750 && cnt<=30)
+    if (velocity<=750 && timer<=30)
     {
         a.renderTexture(frame[0],x,velocity,o_w,o_h);
         velocity+=speed;
-        cnt++;
+        timer++;
     }
-    else if (velocity<750 && cnt>30 && cnt<61)
+    else if (velocity<750 && timer>30 && timer<61)
     {
         a.renderTexture(frame[1],x,velocity,o_w,o_h);
         velocity+=speed;
-        cnt++;
+        timer++;
     }
-    else if (cnt==61)
+    else if (timer==61)
     {
         a.renderTexture(frame[1],x,velocity,o_w,o_h);
-        cnt=0;
+        timer=0;
     }
     else
     {
         reset();
     }
-    if(difficulty-0.5>150) difficulty-=0.5;
-    if(speed+0,05<9) speed+=0,05;
+//    if(difficulty-0.5>150) difficulty-=0.5;
+//    if(speed+0,05<9) speed+=0,05;
 }
 
 bool obsticale::event(float n)
