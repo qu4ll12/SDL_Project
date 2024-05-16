@@ -1,4 +1,5 @@
 #include "player.h"
+#include "def.h"
 
 using namespace std;
 
@@ -20,12 +21,12 @@ player::player(float player_x, float player_y, float player_w, float player_h, S
 
 void player::loadRender()
 {
-    for(int i=0;i<6;++i)
+    for(int i=0;i<PLAYER_SPRITE_SIZE;++i)
     {
         x[i]=i*71;
     }
 
-    for(int i=0;i<6;i++)
+    for(int i=0;i<PLAYER_SPRITE_SIZE;i++)
     {
         drift.push_back(entity (x[i],0,p_w,p_h,tex));
     }
@@ -34,7 +35,7 @@ void player::loadRender()
     {
         for(int j=0;j<5;j++)
         {
-            explosion.push_back(entity (i*96,144,96,92,tex));
+            explosion.push_back(entity (i*EXPLOSION_WIDTH,144,EXPLOSION_WIDTH,EXPLOSION_HEIGHT,tex));
         }
     }
 }
@@ -88,14 +89,14 @@ void player::die(renderWindow &a,float &n)
         if(timerE%2!=0) a.renderTexture(drift[0],n,600,p_w,p_h);
         timerE++;
     }
-    else if(timerE>12 && timerE<=explosion.size()-1)
+    else if(timerE>12 && timerE<=EXPLOSION_SPRITE_SIZE-2)
     {
-        a.renderTexture(explosion[timerE-13],n-10,600,96,92);
+        a.renderTexture(explosion[timerE-13],n-10,600,EXPLOSION_WIDTH,EXPLOSION_HEIGHT);
         timerE++;
     }
-    else if(timerE==explosion.size())
+    else if(timerE==EXPLOSION_SPRITE_SIZE-1)
     {
-        a.renderTexture(explosion[timerE-13],n-10,600,96,92);
+        a.renderTexture(explosion[timerE-13],n-10,600,EXPLOSION_WIDTH,EXPLOSION_HEIGHT);
         timerE=0;
     }
 }
@@ -106,9 +107,9 @@ void player::rightLane(renderWindow& a, float &n)
     {
         if(i%2!=0) a.renderTexture(drift[1],n+15*(i-1),600,p_w,p_h);
         if(i%2==0) a.renderTexture(drift[2],n+15*(i-1),600,p_w,p_h);
-        if(i==6 && n+76 < 76*5)
+        if(i==6 && n < BORDER_RIGHT)
         {
-            n+=76;
+            n+=LANE_WIDTH;
             a.renderTexture(drift[0],n,600,p_w,p_h);
             break;
         }
@@ -126,8 +127,8 @@ void player::rightLane_(renderWindow& a, float &n)
         }
         else
         {
-            if(i%2!=0) a.renderTexture(drift[1],(n-76)+15*(i-1),600,p_w,p_h);
-            if(i%2==0) a.renderTexture(drift[2],(n-76)+15*(i-1),600,p_w,p_h);
+            if(i%2!=0) a.renderTexture(drift[1],(n-LANE_WIDTH)+15*(i-1),600,p_w,p_h);
+            if(i%2==0) a.renderTexture(drift[2],(n-LANE_WIDTH)+15*(i-1),600,p_w,p_h);
             a.renderTexture(drift[0],n,600,p_w,p_h);
         }
     }
@@ -145,9 +146,9 @@ void player::leftLane(renderWindow& a, float &n)
     {
         if(i%2!=0) a.renderTexture(drift[1],n-15*(i-1),600,p_w,p_h);
         if(i%2==0) a.renderTexture(drift[2],n-15*(i-1),600,p_w,p_h);
-        if(i==6 && n-77 > 0)
+        if(i==PLAYER_SPRITE_SIZE && n > BORDER_LEFT)
         {
-            n-=76;
+            n-=LANE_WIDTH;
             a.renderTexture(drift[0],n,600,p_w,p_h);
             break;
         }
@@ -165,8 +166,8 @@ void player::leftLane_(renderWindow& a, float &n)
         }
         else
         {
-            if(i%2!=0) a.renderTexture(drift[1],(n+76)-15*(i-1),600,p_w,p_h);
-            if(i%2==0) a.renderTexture(drift[2],(n+76)-15*(i-1),600,p_w,p_h);
+            if(i%2!=0) a.renderTexture(drift[1],(n+LANE_WIDTH)-15*(i-1),600,p_w,p_h);
+            if(i%2==0) a.renderTexture(drift[2],(n+LANE_WIDTH)-15*(i-1),600,p_w,p_h);
             a.renderTexture(drift[0],n,600,p_w,p_h);
         }
     }
@@ -186,7 +187,6 @@ void player::shieldOn()
 void player::shieldOff()
 {
     shield=false;
-    cout<<"skibidi"<<endl;
 }
 
 bool player::shieldStatus()

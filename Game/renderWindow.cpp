@@ -128,6 +128,7 @@ void renderWindow::soundVolume(Mix_Chunk* &sound, int vol)
 {
     Mix_VolumeChunk(sound, vol);
 }
+
 void renderWindow::resumeMusic()
 {
     Mix_ResumeMusic();

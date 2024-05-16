@@ -12,6 +12,7 @@
 #include "SDL_mixer.h"
 #include "SDL_ttf.h"
 #include "def.h"
+#include "fstream"
 
 class image {
 public:
@@ -133,9 +134,9 @@ public:
     button resume;
     button setting;
     button exit_;
+    button exit_menu;
     button setting_resume;
     button exit_resume;
-    button exit_menu;
     button play_again;
     button main_screen;
     button exit_red;
@@ -155,13 +156,10 @@ public:
     entity instruct;
     entity coin1;
     entity taxi_;
-    entity chutinh;
-    entity chutinh1;
+    entity instr_text;
+    entity infor_text;
     entity score;
     float axis_X;
-    float button_state;
-    float button_state1;
-    float button_state2;
     item tnt;
     item shield;
     item energy1;
@@ -216,8 +214,8 @@ public:
           instruct(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, resources.instruction),
           coin1(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, resources.coin),
           taxi_(0, 0, TAXI_WIDTH, TAXI_HEIGHT, resources._taxi),
-          chutinh(0, 0, 200, 20, resources.esc),
-          chutinh1(0, 0, 200, 20, resources.esc1),
+          instr_text(0, 0, 200, 20, resources.esc),
+          infor_text(0, 0, 200, 20, resources.esc1),
           score(0, 0, 700, 700, resources.score_),
           axis_X(default_X),
           tnt(0, 0, ENERGY_WIDTH, ENERGY_HEIGHT, resources.bomb),
@@ -259,7 +257,6 @@ public:
         object.push_back(shield);
         object.push_back(energy1);
 
-        enemies.push_back(taxi);
         enemies.push_back(taxi1);
         enemies.push_back(taxi2);
 
@@ -274,9 +271,37 @@ public:
 
         user.loadRender();
 
-        for(int i=0;i<3;i++) button_states.push_back(121 + 55 + 87),
-        resources.game.musicVolume(SOUND_VOLUME);
-        for(int i=0;i<sound.size();i++) sound[i].soundVolume(SOUND_VOLUME);
+        std::ifstream input("setting.txt");
+        for(int i=0;i<BUTTON_STATES_SIZE;i++)
+        {
+            int value; input>>value;
+            button_states.push_back(value);
+        }
+        input.close();
+
+        resources.game.musicVolume(button_states[0] - 186);
+        for(int i=0;i<SOUND_EFFECT_SIZE;i++) sound[i].soundVolume(button_states[1] - 186);
+
+        enemies.push_back(taxi);
+        enemies.push_back(taxi1);
+        enemies.push_back(taxi2);
+
+        if (button_states[2] == SLIDE_BOTTOM_BORDER_X) {
+            for (int i = 0; i < ENEMIES_SIZE; i++) {
+                enemies[i].setSpeed(EASY_SPEED);
+                enemies[i].setDiff(enemies, EASY_MODE);
+            }
+        } else if (button_states[2] == SLIDE_UPPER_BORDER_X) {
+            for (int i = 0; i < ENEMIES_SIZE; i++) {
+                enemies[i].setSpeed(HARD_SPEED);
+                enemies[i].setDiff(enemies, HARD_MODE);
+            }
+        } else {
+            for (int i = 0; i < ENEMIES_SIZE; i++) {
+                enemies[i].setSpeed(NORMAL_SPEED);
+                enemies[i].setDiff(enemies, NORMAL_MODE);
+            }
+        }
         resources.game.playMusic();
     }
 };

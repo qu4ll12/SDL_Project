@@ -31,6 +31,7 @@ void energy::reset()
     e_x=102+75*e_x;
     e_y=((rand() % (-300 - -600 + 1)) + -600);
     timer=0;
+    fuel=0;
 }
 
 void energy::spawn(renderWindow &a, float speed)
@@ -75,7 +76,7 @@ float energy::getY()
 }
 bool energy::event(float &n)
 {   bool d;
-    if(n<e_x+22+22 && n>e_x-21-21 && e_y>560 && e_y<=740) {d=true; fuel=0; reset();}
+    if(n<e_x+22+22 && n>e_x-21-21 && e_y>560 && e_y<=740) {d=true; reset();}
     else d=false;
 
     return d;

@@ -36,10 +36,9 @@ void button::handleEvent(SDL_Event* e)
     {
         mCurrentSprite = BUTTON_MOUSE_OUT;
     }
-    //Mouse is inside button
+
     else
     {
-        //Set mouse over sprite
         switch( e->type )
         {
             case SDL_MOUSEMOTION:

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1715762539 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1715886685 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -14,7 +14,7 @@
 	"class.h"
 	"fstream"
 
-1715757029 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
+1715885405 source:c:\sdlord\inisdl\sdl_project\game\renderwindow.cpp
 	"renderWindow.h"
 	"entity.h"
 
@@ -34,23 +34,25 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1713843950 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
+1715869698 source:c:\sdlord\inisdl\sdl_project\game\road.cpp
 	"road.h"
+	"def.h"
 
 1713843950 c:\sdlord\inisdl\sdl_project\game\road.h
 	"renderWindow.h"
 	"entity.h"
 
-1715764012 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
+1715872416 source:c:\sdlord\inisdl\sdl_project\game\obsticale.cpp
 	"renderWindow.h"
 	"entity.h"
 	"obsticale.h"
+	"def.h"
 
-1715763570 c:\sdlord\inisdl\sdl_project\game\obsticale.h
+1715871152 c:\sdlord\inisdl\sdl_project\game\obsticale.h
 	"renderWindow.h"
 	"entity.h"
 
-1714986052 source:c:\sdlord\inisdl\sdl_project\game\button.cpp
+1715871114 source:c:\sdlord\inisdl\sdl_project\game\button.cpp
 	"button.h"
 
 1714613915 c:\sdlord\inisdl\sdl_project\game\button.h
@@ -61,22 +63,24 @@
 	"renderWindow.h"
 	"entity.h"
 
-1715250288 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
+1715881392 source:c:\sdlord\inisdl\sdl_project\game\player.cpp
 	"player.h"
+	"def.h"
 
-1715262459 source:c:\sdlord\inisdl\sdl_project\game\energy.cpp
+1715852714 source:c:\sdlord\inisdl\sdl_project\game\energy.cpp
 	"energy.h"
 
 1714036072 c:\sdlord\inisdl\sdl_project\game\energy.h
 	"renderWindow.h"
 	"entity.h"
 
-1715764013 c:\sdlord\inisdl\sdl_project\game\def.h
+1715886685 c:\sdlord\inisdl\sdl_project\game\def.h
 
-1715260783 source:c:\sdlord\inisdl\sdl_project\game\item.cpp
+1715881392 source:c:\sdlord\inisdl\sdl_project\game\item.cpp
 	"item.h"
+	"def.h"
 
-1715260783 c:\sdlord\inisdl\sdl_project\game\item.h
+1715870640 c:\sdlord\inisdl\sdl_project\game\item.h
 	"renderWindow.h"
 	"entity.h"
 
@@ -93,7 +97,7 @@
 	"SDL_ttf.h"
 	"def.h"
 
-1715778223 c:\sdlord\inisdl\sdl_project\game\class.h
+1715886685 c:\sdlord\inisdl\sdl_project\game\class.h
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -106,6 +110,7 @@
 	"SDL_mixer.h"
 	"SDL_ttf.h"
 	"def.h"
+	"fstream"
 
 1715757040 c:\sdlord\inisdl\sdl_project\game\sound.h
 	<bits/stdc++.h>

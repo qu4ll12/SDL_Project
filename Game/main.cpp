@@ -17,16 +17,25 @@ using namespace std;
 int point=0;
 int point_w=35;
 
+int caculateWidth(int value)
+{
+    if (value < 10) return 35;
+    if (value < 100) return 70;
+    if (value < 1000) return 105;
+    if (value < 10000) return 140;
+    return 175;
+}
+
 void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
 {
-    for(int i=0;i<enemies.size();i++) {
+    for(int i=0;i<ENEMIES_SIZE;i++) {
         if(enemies[i].getY()>750) point++;
         enemies[i].spawn(game);
     }
-    for(int i=0;i<object.size();i++) object[i].spawn(game,enemies[0].returnSpeed());
-    for(int i=0;i<enemies.size()-1;i++)
+    for(int i=0;i<OBJECT_SIZE;i++) object[i].spawn(game,enemies[0].returnSpeed());
+    for(int i=0;i<ENEMIES_SIZE-1;i++)
     {
-        for(int j=i+1;j<enemies.size();j++)
+        for(int j=i+1;j<ENEMIES_SIZE;j++)
         {
             if(i!=j && enemies[i].getX()== enemies[j].getX() && enemies[i].getY()<0 && enemies[j].getY()<0)
             {
@@ -48,9 +57,9 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
     {
         bool error=false;
         bool losing=true;
-        for(int i=0;i<enemies.size();i++)
+        for(int i=0;i<ENEMIES_SIZE;i++)
         {
-            for(int j=0;j<object.size();j++)
+            for(int j=0;j<OBJECT_SIZE;j++)
             {
                 if(-enemies[i].getX()+object[j].getX()<=25 && -enemies[i].getX()+object[j].getX()>=22
                    && object[j].getY()<0)
@@ -64,9 +73,9 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
             }
         }
 
-        for(int i=0;i<object.size()-1;i++)
+        for(int i=0;i<OBJECT_SIZE-1;i++)
         {
-            for(int j=i+1;j<object.size();j++)
+            for(int j=i+1;j<OBJECT_SIZE;j++)
             {
                 if(i!=j && object[i].getX()== object[j].getX() && object[i].getY()<0 && object[j].getY()<0)
                 {
@@ -86,9 +95,9 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
             }
         }
 
-        for(int i=0;i<enemies.size()-1;i++)
+        for(int i=0;i<ENEMIES_SIZE-1;i++)
         {
-            for(int j=i+1;j<enemies.size();j++)
+            for(int j=i+1;j<ENEMIES_SIZE;j++)
             if(i!=j && enemies[i].getX() == enemies[j].getY()) losing = false;
         }
 
@@ -96,7 +105,7 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
         {
             float oldX=object[0].getX();
             float remain_slot=764;
-            for(int i=0;i<enemies.size();i++) remain_slot-=enemies[i].getX();
+            for(int i=0;i<ENEMIES_SIZE;i++) remain_slot-=enemies[i].getX();
             if(oldX-remain_slot<=25 && oldX-remain_slot>=22 && object[0].getY()<0)
             {
                 while(object[0].getX()-remain_slot<=25 && object[0].getX()-remain_slot>=22)
@@ -109,6 +118,15 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
         }
         if(!error) loop=false;
     }
+}
+
+void print_score(image& resources, int point)
+{
+    string point_string=to_string(point);
+    SDL_Texture* point_texture=resources.game.renderText(point_string.c_str(), resources.gFont1, resources.textColor1);
+    point_w=caculateWidth(point);
+    entity point_entity(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,point_texture);
+    resources.game.renderTexture(point_entity,50,18,point_w,SCORE_HEIGHT);
 }
 
 void game_over_screen(renderWindow &a, SDL_Texture* game_over)
@@ -126,8 +144,6 @@ void game_over_screen(renderWindow &a, SDL_Texture* game_over)
     }
 }
 
-ifstream input("score.txt");
-ofstream output("score.txt");
 void res(image& resources, graphic &gfx)
 {
     gfx.traffic.unpress(resources.game);
@@ -145,10 +161,54 @@ void res(image& resources, graphic &gfx)
     gfx.sound[7].playSound();
 }
 
+void moving_left(image& resources, graphic& gfx, entity& point_entity)
+{
+    gfx.sound[1].playSound();
+    for(int i=0;i<MOVING_SPRITE_SIZE;i++)
+    {
+        gfx.highway.animateRoad(resources.game,SPEED);
+        spawn(gfx.enemies,gfx.object,resources.game);
+        resources.game.renderTexture(point_entity,50,18,point_w,SCORE_HEIGHT);
+        gfx.user.leftLane(resources.game,gfx.axis_X);
+        resources.game.display();
+    }
+
+    for(int i=0;i<MOVING_SPRITE_SIZE;i++)
+    {
+        gfx.highway.animateRoad(resources.game,SPEED);
+        spawn(gfx.enemies,gfx.object,resources.game);
+        resources.game.renderTexture(point_entity,50,18,point_w,SCORE_HEIGHT);
+        gfx.user.leftLane_(resources.game,gfx.axis_X);
+        resources.game.display();
+    }
+}
+
+void moving_right(image& resources, graphic& gfx, entity& point_entity)
+{
+    gfx.sound[1].playSound();
+    for(int i=0;i<6;i++)
+    {
+        gfx.highway.animateRoad(resources.game,SPEED);
+        spawn(gfx.enemies,gfx.object,resources.game);
+        resources.game.renderTexture(point_entity,50,18,point_w,SCORE_HEIGHT);
+        gfx.user.rightLane(resources.game,gfx.axis_X);
+        resources.game.display();
+    }
+
+    for(int i=0;i<6;i++)
+    {
+        gfx.highway.animateRoad(resources.game,SPEED);
+        spawn(gfx.enemies,gfx.object,resources.game);
+        resources.game.renderTexture(point_entity,50,18,point_w,SCORE_HEIGHT);
+        gfx.user.rightLane_(resources.game,gfx.axis_X);
+        resources.game.display();
+    }
+}
+
 void menu(image& resources, graphic& gfx)
 {
     SDL_Event event;
-    gfx.axis_X = 77 + 76;
+    gfx.axis_X = ORIGIN_X;
 
     while (resources.menu_state) {
         while (SDL_PollEvent(&event)) {
@@ -160,7 +220,7 @@ void menu(image& resources, graphic& gfx)
             if (event.button.button == SDL_BUTTON_LEFT) {
                 gfx.sound[0].playSound();
                 if (gfx.button_menu[0].event()) {
-                    for (int i = 0; i < gfx.button_menu.size(); i++) {
+                    for (int i = 0; i < BUTTON_MENU_SIZE; i++) {
                         if (i == 0) gfx.button_menu[i].pressed(resources.game);
                         else gfx.button_menu[i].unpress(resources.game);
                     }
@@ -170,7 +230,7 @@ void menu(image& resources, graphic& gfx)
                     resources.menu_state = false;
                 } else if (gfx.button_menu[1].event()) {
                     bool setting_state = true;
-                    for (int i = 0; i < gfx.button_menu.size(); i++) {
+                    for (int i = 0; i < BUTTON_MENU_SIZE; i++) {
                         if (i == 1) gfx.button_menu[i].pressed(resources.game);
                         else gfx.button_menu[i].unpress(resources.game);
                     }
@@ -178,7 +238,7 @@ void menu(image& resources, graphic& gfx)
                     SDL_Event e;
                     int x, y;
                     while (setting_state) {
-                        resources.game.musicVolume(gfx.button_states[0] - 186);
+                        resources.game.musicVolume(gfx.button_states[0] - 181);
                         resources.game.resumeMusic();
                         SDL_GetMouseState(&x, &y);
                         while (SDL_PollEvent(&e)) {
@@ -186,37 +246,42 @@ void menu(image& resources, graphic& gfx)
                             resources.game.renderTexture(gfx.slide_button, gfx.button_states[0], 41 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
                             resources.game.renderTexture(gfx.slide_button1, gfx.button_states[1], 121 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
                             resources.game.renderTexture(gfx.slide_button2, gfx.button_states[2], 199 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
-                            for(int i=0;i<gfx.sound.size();i++) {gfx.sound[i].soundVolume(gfx.button_states[1] - 186);}
-                            cout<<gfx.button_states[1]<<endl;
+                            for(int i=0;i<SOUND_EFFECT_SIZE;i++) {gfx.sound[i].soundVolume(gfx.button_states[1] - 186);}
                             if (e.type == SDL_QUIT) {
                                 exit(0);
                             }
-                            if (e.button.button == SDL_BUTTON_LEFT) {
+                            ofstream output("setting.txt");
+                            for(int i=0;i<BUTTON_STATES_SIZE;i++) {
+                                output<<gfx.button_states[i];
+                                output<<endl;
+                            }
+                            output.close();
+                             if (e.button.button == SDL_BUTTON_LEFT) {
                                 if (gfx.exit_menu.event()) {
                                     gfx.exit_menu.pressed(resources.game);
                                     setting_state = false;
-                                } else if (y >= 41 + 230 - 38 && y <= 41 + 230 + 30 && x >= 199 - 13 && x <= 354 - 13) {
+                                } else if (y >= SLIDE1_BOTTOM_BORDER_Y && y <= SLIDE1_UPPER_BORDER_Y && x >= SLIDE_BOTTOM_BORDER_X && x <= SLIDE_UPPER_BORDER_X) {
                                     gfx.button_states[0] = x;
-                                } else if (y >= 121 + 230 - 38 && y <= 121 + 230 + 30 && x >= 199 - 13 && x <= 354 - 13) {
+                                } else if (y >= SLIDE2_BOTTOM_BORDER_Y && y <= SLIDE2_UPPER_BORDER_Y && x >= SLIDE_BOTTOM_BORDER_X && x <= SLIDE_UPPER_BORDER_X) {
                                     gfx.button_states[1] = x;
-                                } else if (y >= 199 + 230 - 38 && y <= 199 + 230 + 30 && x >= 181 && x <= 346) {
+                                } else if (y >= SLIDE3_BOTTOM_BORDER_Y && y <= SLIDE3_UPPER_BORDER_Y && x >= SLIDE_BOTTOM_BORDER_X && x <= SLIDE_UPPER_BORDER_X) {
                                     if (x <= 231) {
                                         gfx.button_states[2] = 199 - 13;
-                                        for (int i = 0; i < gfx.enemies.size(); i++) {
-                                            gfx.enemies[i].setSpeed(5);
-                                            gfx.enemies[i].setDiff(gfx.enemies, 400);
+                                        for (int i = 0; i < ENEMIES_SIZE; i++) {
+                                            gfx.enemies[i].setSpeed(EASY_SPEED);
+                                            gfx.enemies[i].setDiff(gfx.enemies, EASY_MODE);
                                         }
                                     } else if (x >= 309) {
                                         gfx.button_states[2] = 354 - 13;
-                                        for (int i = 0; i < gfx.enemies.size(); i++) {
-                                            gfx.enemies[i].setSpeed(9);
-                                            gfx.enemies[i].setDiff(gfx.enemies, 150);
+                                        for (int i = 0; i < ENEMIES_SIZE; i++) {
+                                            gfx.enemies[i].setSpeed(HARD_SPEED);
+                                            gfx.enemies[i].setDiff(gfx.enemies, HARD_MODE);
                                         }
                                     } else {
                                         gfx.button_states[2] = 121 + 55 + 87;
-                                        for (int i = 0; i < gfx.enemies.size(); i++) {
-                                            gfx.enemies[i].setSpeed(7);
-                                            gfx.enemies[i].setDiff(gfx.enemies, 300);
+                                        for (int i = 0; i < ENEMIES_SIZE; i++) {
+                                            gfx.enemies[i].setSpeed(NORMAL_SPEED);
+                                            gfx.enemies[i].setDiff(gfx.enemies, NORMAL_MODE);
                                         }
                                     }
                                 }
@@ -230,14 +295,14 @@ void menu(image& resources, graphic& gfx)
                         resources.game.display();
                     }
                 } else if (gfx.button_menu[2].event()) {
-                    for (int i = 0; i < gfx.button_menu.size(); i++) {
+                    for (int i = 0; i < BUTTON_MENU_SIZE; i++) {
                         if (i == 2) gfx.button_menu[i].pressed(resources.game);
                         else gfx.button_menu[i].unpress(resources.game);
                     }
                     resources.game.display();
                     exit(0);
                 } else if (gfx.button_menu[3].event()) {
-                    for (int i = 0; i < gfx.button_menu.size(); i++) {
+                    for (int i = 0; i < BUTTON_MENU_SIZE; i++) {
                         if (i == 3) gfx.button_menu[i].pressed(resources.game);
                         else gfx.button_menu[i].unpress(resources.game);
                     }
@@ -248,7 +313,7 @@ void menu(image& resources, graphic& gfx)
 
                     while (i) {
                         resources.game.renderTexture(gfx.infor_txt, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-                        resources.game.renderTexture(gfx.chutinh1, 450 - 210, 720, 200, 20);
+                        resources.game.renderTexture(gfx.infor_text, 450 - 210, 720, 200, 20);
                         while (SDL_PollEvent(&i1)) {
                             if (i1.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
                                 i = false;
@@ -259,7 +324,7 @@ void menu(image& resources, graphic& gfx)
                     }
                     i = true;
                 } else if (gfx.button_menu[4].event()) {
-                    for (int i = 0; i < gfx.button_menu.size(); i++) {
+                    for (int i = 0; i < BUTTON_MENU_SIZE; i++) {
                         if (i == 4) gfx.button_menu[i].pressed(resources.game);
                         else gfx.button_menu[i].unpress(resources.game);
                     }
@@ -270,7 +335,7 @@ void menu(image& resources, graphic& gfx)
                         for(int i=0;i<3;i++)
                         {
                             resources.game.renderTexture(gfx.instruct, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-                            resources.game.renderTexture(gfx.chutinh, 450 - 210, 720, 200, 20);
+                            resources.game.renderTexture(gfx.instr_text, 450 - 210, 720, 200, 20);
                             if(i==0) {gfx.a_but.unpress(resources.game); gfx.d_but.pressed(resources.game); gfx.sound[0].playSound();}
                             else if(i==1) {gfx.a_but.idle(resources.game); gfx.d_but.idle(resources.game);}
                             else if(i==2) {gfx.a_but.pressed(resources.game); gfx.d_but.unpress(resources.game); gfx.sound[0].playSound();}
@@ -284,12 +349,12 @@ void menu(image& resources, graphic& gfx)
                         }
                     }
                 } else {
-                    for (int i = 0; i < gfx.button_menu.size(); i++) {
+                    for (int i = 0; i < BUTTON_MENU_SIZE; i++) {
                         gfx.button_menu[i].unpress(resources.game);
                     }
                 }
             } else {
-                for (int i = 0; i < gfx.button_menu.size(); i++) {
+                for (int i = 0; i < BUTTON_MENU_SIZE; i++) {
                     if (gfx.button_menu[i].event()) {
                         gfx.button_menu[i].idle(resources.game);
                     } else {
@@ -309,32 +374,20 @@ void game_loop(image& resources, graphic& gfx)
 
     while(!resources.menu_state)
     {
-        gfx.highway.animateRoad(resources.game,speed);
+        gfx.highway.animateRoad(resources.game,SPEED);
         spawn(gfx.enemies,gfx.object,resources.game);
         gfx.user.defaultPlayer(resources.game,gfx.axis_X);
         string point_string=to_string(point);
         SDL_Texture* point_texture=resources.game.renderText(point_string.c_str(), resources.gFont1, resources.textColor1);
-        entity point_entity(0,0,500,500,point_texture);
-        if(point<10) point_w=35;
-        else if(point>=10 && point<100) point_w=70;
-        else if(point>=100 && point<1000) point_w=105;
-        else if(point>=1000) point_w=140;
-        else if(point>=10000) point_w=175;
-        resources.game.renderTexture(point_entity,50,18,point_w,70);
+        point_w=caculateWidth(point);
+        entity point_entity(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,point_texture);
+        resources.game.renderTexture(point_entity,50,18,point_w,SCORE_HEIGHT);
         if(resources.e==true)
         {
             if(resources.cnt>=24) {resources.e=false; resources.cnt=0;}
             gfx.user.levelUp(resources.game,gfx.axis_X);
             resources.cnt++;
         }
-//            taxi3.spawn(game,m);
-//            taxi4.spawn(game,m);
-//            taxi5.spawn(game,m);
-//            taxi6.spawn(game,m);
-//            taxi7.spawn(game,m);
-//            taxi8.spawn(game,m);
-//            taxi9.spawn(game,m);
-//            taxi10.spawn(game,m);
         while(SDL_PollEvent(&event))
         {
             if(event.type == SDL_QUIT)
@@ -346,57 +399,22 @@ void game_loop(image& resources, graphic& gfx)
                 switch(event.key.keysym.sym)
                 {
                     case SDLK_a:
-                    if(gfx.axis_X>77)
+                    if(gfx.axis_X>BORDER_LEFT)
                     {
-                        gfx.sound[1].playSound();
-                        for(int i=0;i<6;i++)
-                        {
-                            gfx.highway.animateRoad(resources.game,speed);
-                            spawn(gfx.enemies,gfx.object,resources.game);
-                            resources.game.renderTexture(point_entity,50,18,point_w,70);
-                            gfx.user.leftLane(resources.game,gfx.axis_X);
-                            resources.game.display();
-                        }
-
-                        for(int i=0;i<6;i++)
-                        {
-                            gfx.highway.animateRoad(resources.game,speed);
-                            spawn(gfx.enemies,gfx.object,resources.game);
-                            resources.game.renderTexture(point_entity,50,18,point_w,70);
-                            gfx.user.leftLane_(resources.game,gfx.axis_X);
-                            resources.game.display();
-                        }
+                        moving_left(resources, gfx, point_entity);
                     }
                     break;
 
                     case SDLK_d:
-                    if(gfx.axis_X<76*4)
+                    if(gfx.axis_X<BORDER_RIGHT)
                     {
-                        gfx.sound[1].playSound();
-                        for(int i=0;i<6;i++)
-                        {
-                            gfx.highway.animateRoad(resources.game,speed);
-                            spawn(gfx.enemies,gfx.object,resources.game);
-                            resources.game.renderTexture(point_entity,50,18,point_w,70);
-                            gfx.user.rightLane(resources.game,gfx.axis_X);
-                            resources.game.display();
-                        }
-
-                        for(int i=0;i<6;i++)
-                        {
-                            gfx.highway.animateRoad(resources.game,speed);
-                            spawn(gfx.enemies,gfx.object,resources.game);
-                            resources.game.renderTexture(point_entity,50,18,point_w,70);
-                            gfx.user.rightLane_(resources.game,gfx.axis_X);
-                            resources.game.display();
-                        }
+                        moving_right(resources, gfx, point_entity);
                     }
                     break;
 
                     case SDLK_ESCAPE:
-
                     bool dresume=false;
-                    for(int i=0;i<gfx.button_menu_resume.size();i++) gfx.button_menu_resume[i].unpress(resources.game);
+                    for(int i=0;i<BUTTON_MENU_RESUME_SIZE;i++) gfx.button_menu_resume[i].unpress(resources.game);
                     resources.game.display();
 
                     while(!dresume)
@@ -404,8 +422,8 @@ void game_loop(image& resources, graphic& gfx)
                         while(SDL_PollEvent(&event))
                         {
                             gfx.highway.stillRoad(resources.game);
-                            for(int i=0;i<gfx.enemies.size();i++) gfx.enemies[i].stillO(resources.game);
-                            for(int i=0;i<gfx.object.size();i++) gfx.object[i].stillE(resources.game);
+                            for(int i=0;i<ENEMIES_SIZE;i++) gfx.enemies[i].stillO(resources.game);
+                            for(int i=0;i<OBJECT_SIZE;i++) gfx.object[i].stillE(resources.game);
 
                             if(event.type == SDL_QUIT)
                             {
@@ -416,7 +434,7 @@ void game_loop(image& resources, graphic& gfx)
                                 gfx.sound[0].playSound();
                                 if (gfx.button_menu_resume[0].event())
                                 {
-                                    for(int i=0;i<gfx.button_menu_resume.size();i++)
+                                    for(int i=0;i<BUTTON_MENU_RESUME_SIZE;i++)
                                     {
                                         if(i==0) gfx.button_menu_resume[i].pressed(resources.game);
                                         else gfx.button_menu_resume[i].unpress(resources.game);
@@ -429,7 +447,7 @@ void game_loop(image& resources, graphic& gfx)
                                 else if (gfx.button_menu_resume[3].event())
                                 {
                                     bool menu_state=true;
-                                    for(int i=0;i<gfx.button_menu_resume.size();i++)
+                                    for(int i=0;i<BUTTON_MENU_RESUME_SIZE;i++)
                                     {
                                         if(i==3) gfx.button_menu_resume[i].pressed(resources.game);
                                         else gfx.button_menu_resume[i].unpress(resources.game);
@@ -439,36 +457,45 @@ void game_loop(image& resources, graphic& gfx)
                                     int x,y;
                                     while(menu_state)
                                     {
-                                        resources.game.musicVolume(gfx.button_states[0]-186);
+                                        resources.game.musicVolume(gfx.button_states[0]-181);
                                         resources.game.resumeMusic();
                                         while(SDL_PollEvent(&e))
                                         {
                                             SDL_GetMouseState(&x,&y);
-                                            resources.game.renderTexture(gfx.menu,55,230,335,335);
+                                            resources.game.renderTexture(gfx.menu,55,230,MENU_WIDTH,MENU_HEIGHT);
                                             resources.game.renderTexture(gfx.slide_button,gfx.button_states[0],41+230,SLIDE_WIDTH,SLIDE_HEIGHT);
                                             resources.game.renderTexture(gfx.slide_button1,gfx.button_states[1],121+230,SLIDE_WIDTH,SLIDE_HEIGHT);
                                             resources.game.renderTexture(gfx.slide_button3,gfx.button_states[2],199+230,SLIDE_WIDTH,SLIDE_HEIGHT);
-                                            for(int i=0;i<gfx.sound.size();i++) {gfx.sound[i].soundVolume(gfx.button_states[1] - 186);}
-                                            if(gfx.exit_menu.event() && e.button.button==SDL_BUTTON_LEFT)
-                                            {
-                                                gfx.exit_menu.pressed(resources.game);
-                                                menu_state=false;
+                                            for(int i=0;i<SOUND_EFFECT_SIZE;i++) gfx.sound[i].soundVolume(gfx.button_states[1] - 186);
+                                            ofstream output("setting.txt");
+                                            for(int i=0;i<BUTTON_STATES_SIZE;i++) {
+                                                output<<gfx.button_states[i];
+                                                output<<endl;
                                             }
-                                            else if(y>=41+230-38 && y<=41+230+30 && x>=181 && x<=346 && e.button.button==SDL_BUTTON_LEFT)
+                                            output.close();
+                                            if(e.button.button==SDL_BUTTON_LEFT)
                                             {
-                                                gfx.button_states[0]=x;
-                                            }
-                                            else if(y>=121+230-38 && y<=121+230+30 && x>=181 && x<=346 && e.button.button==SDL_BUTTON_LEFT)
-                                            {
-                                                gfx.button_states[1]=x;
-                                            }
-                                            else if(gfx.exit_menu.event())
-                                            {
-                                                gfx.exit_menu.idle(resources.game);
-                                            }
-                                            else
-                                            {
-                                                gfx.exit_menu.unpress(resources.game);
+                                                if(gfx.exit_menu.event())
+                                                {
+                                                    gfx.exit_menu.pressed(resources.game);
+                                                    menu_state=false;
+                                                }
+                                                else if(y>=SLIDE1_BOTTOM_BORDER_Y && y<=SLIDE1_UPPER_BORDER_Y && x>=SLIDE_BOTTOM_BORDER_X && x<=SLIDE_UPPER_BORDER_X)
+                                                {
+                                                    gfx.button_states[0]=x;
+                                                }
+                                                else if(y>=SLIDE2_BOTTOM_BORDER_Y && y<=SLIDE2_UPPER_BORDER_Y && x>=SLIDE_BOTTOM_BORDER_X && x<=SLIDE_UPPER_BORDER_X)
+                                                {
+                                                    gfx.button_states[1]=x;
+                                                }
+                                                else if(gfx.exit_menu.event())
+                                                {
+                                                    gfx.exit_menu.idle(resources.game);
+                                                }
+                                                else
+                                                {
+                                                    gfx.exit_menu.unpress(resources.game);
+                                                }
                                             }
                                         }
                                         gfx.user.defaultPlayer(resources.game,gfx.axis_X);
@@ -478,7 +505,7 @@ void game_loop(image& resources, graphic& gfx)
                                 }
                                 else if (gfx.button_menu_resume[4].event())
                                 {
-                                    for(int i=0;i<gfx.button_menu_resume.size();i++)
+                                    for(int i=0;i<BUTTON_MENU_RESUME_SIZE;i++)
                                     {
                                         if(i==4) gfx.button_menu_resume[i].pressed(resources.game);
                                         else gfx.button_menu_resume[i].unpress(resources.game);
@@ -486,11 +513,11 @@ void game_loop(image& resources, graphic& gfx)
                                     resources.game.display();
                                     exit(0);
                                 }
-                                else for(int i=0;i<gfx.button_menu_resume.size();i++) gfx.button_menu_resume[i].unpress(resources.game);
+                                else for(int i=0;i<BUTTON_MENU_RESUME_SIZE;i++) gfx.button_menu_resume[i].unpress(resources.game);
                             }
                             else
                             {
-                                for(int i=0;i<gfx.button_menu_resume.size();i++)
+                                for(int i=0;i<BUTTON_MENU_RESUME_SIZE;i++)
                                 {
                                     if(gfx.button_menu_resume[i].event())
                                     {
@@ -508,8 +535,8 @@ void game_loop(image& resources, graphic& gfx)
                     }
 
                     gfx.highway.stillRoad(resources.game);
-                    for(int i=0;i<gfx.enemies.size();i++) gfx.enemies[i].stillO(resources.game);
-                    for(int i=0;i<gfx.object.size();i++) gfx.object[i].stillE(resources.game);
+                    for(int i=0;i<ENEMIES_SIZE;i++) gfx.enemies[i].stillO(resources.game);
+                    for(int i=0;i<OBJECT_SIZE;i++) gfx.object[i].stillE(resources.game);
                     gfx.user.defaultPlayer(resources.game,gfx.axis_X);
                     res(resources, gfx);
                     break;
@@ -521,34 +548,34 @@ void game_loop(image& resources, graphic& gfx)
         {
             SDL_Event event1;
             gfx.sound[2].playSound();
-            string best_string;
-            input>>best_string;
-            int best_w,best;
-            if(point_string>best_string) {
-                cout<<"changes"<<endl;
-//                    input>>point_string;
-//                    output<<best_string;
+            int best_w=0,best;
+            ifstream input("score.txt");
+            input>>best;
+            input.close();
+            string best_string=to_string(best);
+            if(point>best) {
+                ofstream output("score.txt");
+                cout << "changes" << endl;
+                best_string = point_string;
+                output << best_string;
+                output.close();
             }
+            best = stoi(best_string);
+            best_w=caculateWidth(best);
             SDL_Texture* best_=resources.game.renderText(best_string.c_str(), resources.gFont1, resources.textColor1);
-            entity best__(0,0,500,500,best_);
-            best_w=35;
-//                if(point<10) point_w=35;
-//                else if(point>=10 && point<100) best_w=70;
-//                else if(point>=100 && point<1000) best_w=105;
-//                else if(point>=1000) best_w=140;
-//                else if(point>=10000) best_w=175;
-            for(int i=0;i<66;i++)
+            entity best__(0,0,SCREEN_WIDTH,SCREEN_HEIGHT,best_);
+            for(int i=0;i<EXPLOSION_SPRITE_SIZE;i++)
             {
                 gfx.highway.stillRoad(resources.game);
-                for(int i=0;i<gfx.enemies.size();i++) gfx.enemies[i].stillO(resources.game);
-                for(int i=0;i<gfx.object.size();i++) gfx.object[i].stillE(resources.game);
+                for(int i=0;i<ENEMIES_SIZE;i++) gfx.enemies[i].stillO(resources.game);
+                for(int i=0;i<OBJECT_SIZE;i++) gfx.object[i].stillE(resources.game);
                 gfx.user.die(resources.game,gfx.axis_X);
                 resources.game.display();
                 SDL_Delay(50);
             }
             game_over_screen(resources.game,resources.game_over);
             resources.game.renderTexture(gfx.you_die,0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
-            for(int i=0;i<gfx.button_menu_die.size();i++) gfx.button_menu_die[i].unpress(resources.game);
+            for(int i=0;i<BUTTON_MENU_DIE_SIZE;i++) gfx.button_menu_die[i].unpress(resources.game);
             resources.game.display();
 
             while(!resources.again_bro)
@@ -556,8 +583,8 @@ void game_loop(image& resources, graphic& gfx)
                 while(SDL_PollEvent(&event1))
                 {
                     resources.game.renderTexture(gfx.you_die,0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
-                    resources.game.renderTexture(point_entity,280,290,point_w,70);
-                    resources.game.renderTexture(best__,230,405,best_w,70);
+                    resources.game.renderTexture(point_entity,280,290,point_w,SCORE_HEIGHT);
+                    resources.game.renderTexture(best__,230,405,best_w,SCORE_HEIGHT);
                     if(event1.type == SDL_QUIT)
                     {
                         exit(0);
@@ -567,26 +594,24 @@ void game_loop(image& resources, graphic& gfx)
                         gfx.sound[0].playSound();
                         if(gfx.button_menu_die[0].event())
                         {
-                            for(int i=0;i<gfx.button_menu_die.size();i++){
+                            for(int i=0;i<BUTTON_MENU_DIE_SIZE;i++){
                                 if(i==0) gfx.button_menu_die[i].pressed(resources.game);
                                 else gfx.button_menu_die[i].unpress(resources.game);
                             }
                             resources.again_bro=true;
-                            break;
                         }
                         else if(gfx.button_menu_die[1].event())
                         {
-                            for(int i=0;i<gfx.button_menu_die.size();i++){
+                            for(int i=0;i<BUTTON_MENU_DIE_SIZE;i++){
                                 if(i==1) gfx.button_menu_die[i].pressed(resources.game);
                                 else gfx.button_menu_die[i].unpress(resources.game);
                             }
                             resources.menu_state=true;
                             resources.again_bro=true;
-                            break;
                         }
                         else if(gfx.button_menu_die[2].event())
                         {
-                            for(int i=0;i<gfx.button_menu_die.size();i++){
+                            for(int i=0;i<BUTTON_MENU_DIE_SIZE;i++){
                                 if(i==2) gfx.button_menu_die[i].pressed(resources.game);
                                 else gfx.button_menu_die[i].unpress(resources.game);
                             }
@@ -595,7 +620,7 @@ void game_loop(image& resources, graphic& gfx)
                         }
                         else
                         {
-                            for(int i=0;i<gfx.button_menu_die.size();i++)
+                            for(int i=0;i<BUTTON_MENU_DIE_SIZE;i++)
                         {
                                 gfx.button_menu_die[i].unpress(resources.game);
                             }
@@ -603,7 +628,7 @@ void game_loop(image& resources, graphic& gfx)
                     }
                     else
                     {
-                        for(int i=0;i<gfx.button_menu_die.size();i++)
+                        for(int i=0;i<BUTTON_MENU_DIE_SIZE;i++)
                         {
                             if(gfx.button_menu_die[i].event())
                             {
@@ -614,16 +639,15 @@ void game_loop(image& resources, graphic& gfx)
                                 gfx.button_menu_die[i].unpress(resources.game);
                             }
                         }
-                    }
-                    resources.game.display();
+                    } resources.game.display();
                 }
             }
             point=0;
-            gfx.axis_X=77+76;
-            gfx.object[2].outOfFuel();
+            gfx.axis_X=ORIGIN_X;
+            gfx.object[2].reset();
             gfx.user.shieldOff();
-            for(int i=0;i<gfx.enemies.size();i++) gfx.enemies[i].reset();
-            for(int i=0;i<gfx.object.size();i++) gfx.object[i].reset();
+            for(int i=0;i<ENEMIES_SIZE;i++) gfx.enemies[i].reset();
+            for(int i=0;i<OBJECT_SIZE;i++) gfx.object[i].reset();
             resources.again_bro=false;
         }
         else if(gfx.object[0].event(gfx.axis_X) && gfx.user.shieldStatus())
@@ -653,20 +677,24 @@ int main(int argc, char* argv[])
 {
     image resources;
     graphic gfx(resources);
+    SDL_Event e;
 
     while (true) {
+        while(SDL_PollEvent(&e))
+        {
+            if(e.type == SDL_QUIT) exit(0);
+        }
         menu(resources, gfx);
 
         gfx.highway.stillRoad(resources.game);
         gfx.user.defaultPlayer(resources.game, gfx.axis_X);
         res(resources, gfx);
-        for(int i=0;i<gfx.enemies.size();i++) gfx.enemies[i].reset();
-        for(int i=0;i<gfx.object.size();i++) gfx.object[i].reset();
+        for(int i=0;i<ENEMIES_SIZE;i++) gfx.enemies[i].reset();
+        for(int i=0;i<OBJECT_SIZE;i++) gfx.object[i].reset();
 
         game_loop(resources, gfx);
     }
     resources.game.waitUntilKeyPressed();
     resources.game.quitSDL();
-    output.close();
     return 0;
 }

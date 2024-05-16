@@ -1,6 +1,7 @@
 #include "renderWindow.h"
 #include "entity.h"
 #include "obsticale.h"
+#include "def.h"
 
 using namespace std;
 
@@ -11,10 +12,10 @@ obsticale::obsticale(float obsticale_x, float obsticale_y, float obsticale_w, fl
     o_h=obsticale_h;
     tex=_tex;
     x=((rand() % (3 - 0 + 1)) + 0);
-    x=77+76*x;
-    difficulty=300;
-    speed=7;
-    int difficulty1=300;
+    x=BORDER_LEFT+LANE_WIDTH*x;
+    difficulty=NORMAL_MODE;
+    speed=NORMAL_SPEED;
+    int difficulty1=NORMAL_MODE;
     velocity=((rand() % (-difficulty1 - -difficulty1*3 + 1)) + -difficulty1*3);
     timer=0;
     frame.push_back(entity (0,0,o_w,o_h,tex));
@@ -36,12 +37,6 @@ float obsticale::getH()
     return o_h;
 }
 
-void obsticale::resetX()
-{
-    x=((rand() % (3 - 0 + 1)) + 0);
-    x=77+76*x;
-}
-
 void obsticale::setSpeed(int s)
 {
     speed=s;
@@ -49,7 +44,7 @@ void obsticale::setSpeed(int s)
 
 void obsticale::setDiff(vector <obsticale> &enemies, float n)
 {
-    for(int i=0;i<enemies.size();i++)
+    for(int i=0;i<ENEMIES_SIZE;i++)
     {
         enemies[i].difficulty=n;
     }
@@ -58,7 +53,7 @@ void obsticale::setDiff(vector <obsticale> &enemies, float n)
 void obsticale::reset()
 {
     x=((rand() % (3 - 0 + 1)) + 0);
-    x=77+76*x;
+    x=BORDER_LEFT+LANE_WIDTH*x;
     int difficulty1=difficulty;
     velocity=((rand() % (-difficulty1 - -difficulty1*3 + 1)) + -difficulty1*3);
 }
@@ -66,11 +61,11 @@ void obsticale::reset()
 
 void obsticale::stillO(renderWindow& a)
 {
-    if (velocity<=750 && timer<=30)
+    if (velocity<=SCREEN_HEIGHT && timer<=30)
     {
         a.renderTexture(frame[0],x,velocity,o_w,o_h);
     }
-    else if (velocity<750 && timer>30 && timer<=61)
+    else if (velocity<SCREEN_HEIGHT && timer>30 && timer<=61)
     {
         a.renderTexture(frame[1],x,velocity,o_w,o_h);
     }
@@ -78,14 +73,13 @@ void obsticale::stillO(renderWindow& a)
 
 void obsticale::spawn(renderWindow& a)
 {
-    //cout<<velocity<<endl;
-    if (velocity<=750 && timer<=30)
+    if (velocity<=SCREEN_HEIGHT && timer<=30)
     {
         a.renderTexture(frame[0],x,velocity,o_w,o_h);
         velocity+=speed;
         timer++;
     }
-    else if (velocity<750 && timer>30 && timer<61)
+    else if (velocity<SCREEN_HEIGHT && timer>30 && timer<61)
     {
         a.renderTexture(frame[1],x,velocity,o_w,o_h);
         velocity+=speed;
@@ -100,15 +94,13 @@ void obsticale::spawn(renderWindow& a)
     {
         reset();
     }
-//    if(difficulty-0.5>150) difficulty-=0.5;
-//    if(speed+0,05<9) speed+=0,05;
 }
 
 bool obsticale::event(float n)
 {
     bool d;
 
-    if(n==x && velocity>=750-o_h*2-10 && velocity<=750-50) d=true;
+    if(n==x && velocity>=SCREEN_HEIGHT-o_h*2-10 && velocity<=SCREEN_HEIGHT-15) d=true;
     else d=false;
 
     return d;

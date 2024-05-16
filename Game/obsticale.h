@@ -10,7 +10,6 @@ public:
     void stillO(renderWindow& a);
     void setSpeed(int s);
     void spawn(renderWindow& a);
-    void resetX();
     void reset();
     void setDiff(std:: vector <obsticale> &enemies, float n);
     float getX();
@@ -18,9 +17,8 @@ public:
     float getH();
     float returnSpeed();
     bool event(float n);
-protected:
-    int difficulty;
 private:
+    int difficulty;
     float x,velocity;
     float o_w;
     float o_h;

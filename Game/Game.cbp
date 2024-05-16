@@ -52,8 +52,8 @@
 		<Unit filename="renderWindow.h" />
 		<Unit filename="road.cpp" />
 		<Unit filename="road.h" />
-		<Unit filename="sound.cpp" />
-		<Unit filename="sound.h" />
+		<Unit filename="soundEffect.cpp" />
+		<Unit filename="soundEffect.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
