@@ -4,7 +4,6 @@
 #include "obsticale.h"
 #include "button.h"
 #include "player.h"
-#include "energy.h"
 #include "item.h"
 #include "SDL_mixer.h"
 #include "SDL_ttf.h"
@@ -42,12 +41,10 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
                 while(enemies[i].getY()<enemies[j].getY() && enemies[i].getY()+enemies[i].getH()+5>enemies[j].getY())
                 {
                     enemies[i].reset();
-                    cout<<"reset"<<endl;
                 }
                 while(enemies[i].getY()>enemies[j].getY() && enemies[i].getY()<enemies[j].getY()+enemies[j].getH()+5)
                 {
                     enemies[j].reset();
-                    cout<<"reset"<<endl;
                 }
             }
         }
@@ -68,7 +65,6 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
                 {
                     object[j].reset();
                     error=true;
-                    cout<<"reset1"<<endl;
                 }
             }
         }
@@ -83,13 +79,11 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
                     {
                         object[i].reset();
                         error=true;
-                        cout<<"reset2"<<endl;
                     }
                     while(object[i].getY()>object[j].getY() && object[i].getY()<object[j].getY()+ENERGY_HEIGHT+5)
                     {
                         object[j].reset();
                         error=true;
-                        cout<<"reset2"<<endl;
                     }
                 }
             }
@@ -112,7 +106,6 @@ void spawn(vector<obsticale>& enemies, vector<item>& object, renderWindow& game)
                 {
                     object[0].reset();
                     error=true;
-                    cout<<"reset bomb"<<endl;
                 }
             }
         }
@@ -555,7 +548,6 @@ void game_loop(image& resources, graphic& gfx)
             string best_string=to_string(best);
             if(point>best) {
                 ofstream output("score.txt");
-                cout << "changes" << endl;
                 best_string = point_string;
                 output << best_string;
                 output.close();

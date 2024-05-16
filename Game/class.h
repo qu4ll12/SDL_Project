@@ -6,7 +6,6 @@
 #include "obsticale.h"
 #include "button.h"
 #include "player.h"
-#include "energy.h"
 #include "item.h"
 #include "soundEffect.h"
 #include "SDL_mixer.h"

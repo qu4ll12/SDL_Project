@@ -1,12 +1,11 @@
 # depslib dependency file v1.0
-1715886685 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1715887713 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
 	"obsticale.h"
 	"button.h"
 	"player.h"
-	"energy.h"
 	"item.h"
 	"SDL_mixer.h"
 	"SDL_ttf.h"
@@ -97,14 +96,13 @@
 	"SDL_ttf.h"
 	"def.h"
 
-1715886685 c:\sdlord\inisdl\sdl_project\game\class.h
+1715887716 c:\sdlord\inisdl\sdl_project\game\class.h
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
 	"obsticale.h"
 	"button.h"
 	"player.h"
-	"energy.h"
 	"item.h"
 	"soundEffect.h"
 	"SDL_mixer.h"
