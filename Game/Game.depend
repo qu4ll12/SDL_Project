@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1715890510 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
+1715930023 source:c:\sdlord\inisdl\sdl_project\game\main.cpp
 	"renderWindow.h"
 	"entity.h"
 	"road.h"
@@ -96,7 +96,7 @@
 	"SDL_ttf.h"
 	"def.h"
 
-1715887716 c:\sdlord\inisdl\sdl_project\game\class.h
+1715930656 c:\sdlord\inisdl\sdl_project\game\class.h
 	"renderWindow.h"
 	"entity.h"
 	"road.h"

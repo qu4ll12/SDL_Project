@@ -206,7 +206,7 @@ void menu(image& resources, graphic& gfx)
     while (resources.menu_state) {
         while (SDL_PollEvent(&event)) {
             gfx.highway.stillRoad(resources.game);
-            resources.game.renderTexture(gfx.roadrumble, (450 - 275) / 2 + 1, 90, TITLE_WIDTH, TITLE_HEIGHT);
+            resources.game.renderTexture(gfx.roadrumble, (SCREEN_WIDTH - 275) / 2 + 1, 90, TITLE_WIDTH, TITLE_HEIGHT);
             if (event.type == SDL_QUIT) {
                 exit(0);
             }
@@ -235,7 +235,7 @@ void menu(image& resources, graphic& gfx)
                         resources.game.resumeMusic();
                         SDL_GetMouseState(&x, &y);
                         while (SDL_PollEvent(&e)) {
-                            resources.game.renderTexture(gfx.menu, 55, 230, 335, 335);
+                            resources.game.renderTexture(gfx.menu, 55, 230, MENU_WIDTH, MENU_HEIGHT);
                             resources.game.renderTexture(gfx.slide_button, gfx.button_states[0], 41 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
                             resources.game.renderTexture(gfx.slide_button1, gfx.button_states[1], 121 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);
                             resources.game.renderTexture(gfx.slide_button2, gfx.button_states[2], 199 + 230, SLIDE_WIDTH, SLIDE_HEIGHT);

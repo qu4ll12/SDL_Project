@@ -79,7 +79,6 @@ public:
         title = game.loadTexture("texture\\road_rumble.png");
         _highway = game.loadTexture("texture\\highway1.png");
         _taxi = game.loadTexture("texture\\taxi2.png");
-        button1 = game.loadTexture("texture\\template_button1.png");
         start_button = game.loadTexture("texture\\start_button1.png");
         exit_button = game.loadTexture("texture\\exit_button.png");
         setting_button = game.loadTexture("texture\\setting_button.png");
