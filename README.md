@@ -1,4 +1,4 @@
-![image](https://github.com/qu4ll12/SDL_Project/assets/158488809/6be6d791-9632-4fc0-b771-3df61be92a9c)# Road Rumble - Game project
+# Road Rumble - Game project
 
     Họ và Tên: Lê Nhữ Quang
     MSSV: 23021671
@@ -50,7 +50,7 @@
 ## *Hình ảnh minh họa*
 
 ### Start Menu
-![mainscr]()
+![image](https://github.com/qu4ll12/SDL_Project/assets/158488809/6be6d791-9632-4fc0-b771-3df61be92a9c)
 
 * **[Video demo trò chơi](https://youtu.be/7YNWx59XnYE)**
 ## *Các kĩ thuật sử dụng*
