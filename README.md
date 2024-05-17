@@ -77,9 +77,9 @@
 * Dự án game SDL2 đã mang đến cho em nhiều bài học quý giá về lập trình game và sử dụng thư viện SDL2:
 
 * Kiến thức về lập trình game: Em đã nắm vững các khái niệm cơ bản về lập trình game, áp dụng các kỹ thuật lập trình hướng đối tượng, con trỏ, tìm hiểu về đồ họa 2D, quản lý âm thanh và sự kiện, tối ưu hóa hiệu suất game.
-*Khả năng sử dụng thư viện SDL2: Em đã thành thạo các chức năng cơ bản của SDL2, sử dụng các file và truyền file, gỡ lỗi và tối ưu hóa ứng dụng SDL2.
-*Kinh nghiệm thực tế: em đã trải qua quá trình phát triển game đầy đủ, quản lý dự án, và học hỏi nhiều điều về việc sáng tạo đồ hoạ.
-*Dự án này giúp em phát triển kiến thức, kỹ năng và kinh nghiệm cần thiết cho sự nghiệp lập trình game trong tương lai.
+* Khả năng sử dụng thư viện SDL2: Em đã thành thạo các chức năng cơ bản của SDL2, sử dụng các file và truyền file, gỡ lỗi và tối ưu hóa ứng dụng SDL2.
+* Kinh nghiệm thực tế: em đã trải qua quá trình phát triển game đầy đủ, quản lý dự án, và học hỏi nhiều điều về việc sáng tạo đồ hoạ.
+* Dự án này giúp em phát triển kiến thức, kỹ năng và kinh nghiệm cần thiết cho sự nghiệp lập trình game trong tương lai.
 
 ## *Lời cuối*
 *Cảm ơn mọi người đã đọc và đánh giá project đầu tiên của em.*
