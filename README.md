@@ -51,6 +51,14 @@
 
 ### Start Menu
 ![image](https://github.com/qu4ll12/SDL_Project/assets/158488809/6be6d791-9632-4fc0-b771-3df61be92a9c)
+### Setting
+![image](https://github.com/qu4ll12/SDL_Project/assets/158488809/6cb40701-2712-4d22-9271-fbb0c09c6b15)
+### Gameplay
+![image](https://github.com/qu4ll12/SDL_Project/assets/158488809/8e02a862-1235-47da-8295-28fefdfd0b34)
+### Died Menu
+![image](https://github.com/qu4ll12/SDL_Project/assets/158488809/52f49346-0ad8-4eba-9f35-7ea068e2747b)
+
+
 
 * **[Video demo trò chơi](https://youtu.be/7YNWx59XnYE)**
 ## *Các kĩ thuật sử dụng*
