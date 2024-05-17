@@ -11,6 +11,7 @@ public:
     void spawn(renderWindow &a, float speed);
     void stillE(renderWindow &a);
     void reset();
+    void resetFuel();
     float getX();
     float getY();
     bool event(float &n);

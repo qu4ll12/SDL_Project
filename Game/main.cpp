@@ -590,6 +590,7 @@ void game_loop(image& resources, graphic& gfx)
                                 if(i==0) gfx.button_menu_die[i].pressed(resources.game);
                                 else gfx.button_menu_die[i].unpress(resources.game);
                             }
+                            gfx.object[2].resetFuel();
                             resources.again_bro=true;
                         }
                         else if(gfx.button_menu_die[1].event())

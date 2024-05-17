@@ -35,6 +35,11 @@ void item::reset()
     timer=0;
 }
 
+void item::resetFuel()
+{
+    fuel=0;
+}
+
 void item::spawn(renderWindow &a, float speed)
 {
     if(timer==ITEM_SPRITE_SIZE-1-2)
@@ -49,7 +54,7 @@ void item::spawn(renderWindow &a, float speed)
         timer++;
         e_y+=speed;
     }
-    if(e_y>830)
+    if(e_y>SCREEN_HEIGHT)
     {
         reset();
     }
@@ -77,7 +82,7 @@ float item::getY()
 }
 bool item::event(float &n)
 {   bool d;
-    if(n<e_x+22*2 && n>e_x-21*2 && e_y>560 && e_y<=740) {d=true; fuel=0;}
+    if(n<e_x+22*2 && n>e_x-21*2 && e_y>560 && e_y<=750) {d=true; fuel=0;}
     else d=false;
 
     return d;
